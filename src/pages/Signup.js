@@ -13,6 +13,8 @@ import {
   Text,
   useColorModeValue,
   Link,
+  NumberInput,
+  NumberInputField,
 } from '@chakra-ui/react';
 import { useState } from 'react';
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
@@ -28,8 +30,7 @@ export default function Signup() {
       bg={useColorModeValue('gray.50', 'gray.800')}
     >
       <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
-       
-       {/* Heading */}
+        {/* Heading */}
         <Stack align={'center'}>
           <Heading fontSize={'4xl'} textAlign={'center'}>
             Sign up
@@ -43,19 +44,18 @@ export default function Signup() {
           p={8}
         >
           <Stack spacing={4}>
-
-          {/* First and Last Name Inputs */}
+            {/* First and Last Name Inputs */}
             <HStack>
               <Box>
                 <FormControl id="firstName" isRequired>
                   <FormLabel>First Name</FormLabel>
-                  <Input type="text" />
+                  <Input type="text" placeholder='Happy'/>
                 </FormControl>
               </Box>
               <Box>
                 <FormControl id="lastName">
                   <FormLabel>Last Name</FormLabel>
-                  <Input type="text" />
+                  <Input type="text" placeholder='Bruin'/>
                 </FormControl>
               </Box>
             </HStack>
@@ -63,14 +63,39 @@ export default function Signup() {
             {/* Email Input */}
             <FormControl id="email" isRequired>
               <FormLabel>Email address</FormLabel>
-              <Input type="email" />
+              <Input type="email" placeholder='bruin@ucla.edu'/>
+            </FormControl>
+
+            {/* Phone Input */}
+            <FormControl id="phone" isRequired>
+              <FormLabel>Phone Number</FormLabel>
+              <Input type='number' placeholder='123-456-7890'  >
+              </Input>
             </FormControl>
 
             {/* Password Input */}
             <FormControl id="password" isRequired>
               <FormLabel>Password</FormLabel>
               <InputGroup>
-                <Input type={showPassword ? 'text' : 'password'} />
+                <Input type={showPassword ? 'text' : 'password'} placeholder='••••••••••' />
+                <InputRightElement h={'full'}>
+                  <Button
+                    variant={'ghost'}
+                    onClick={() =>
+                      setShowPassword(showPassword => !showPassword)
+                    }
+                  >
+                    {showPassword ? <ViewIcon /> : <ViewOffIcon />}
+                  </Button>
+                </InputRightElement>
+              </InputGroup>
+            </FormControl>
+
+            {/* Password Input */}
+            <FormControl id="password" isRequired>
+              <FormLabel>Re-Enter Password</FormLabel>
+              <InputGroup>
+                <Input type={showPassword ? 'text' : 'password'} placeholder='••••••••••' />
                 <InputRightElement h={'full'}>
                   <Button
                     variant={'ghost'}
@@ -105,10 +130,8 @@ export default function Signup() {
                 Already a user? <Link color={'blue.400'}>Login</Link>
               </Text>
             </Stack>
-
           </Stack>
         </Box>
-
       </Stack>
     </Flex>
   );
