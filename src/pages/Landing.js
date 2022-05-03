@@ -11,7 +11,7 @@ import {
   VStack,
 } from '@chakra-ui/react';
 
-export default function CallToActionWithIllustration() {
+export default function Landing() {
   return (
     <Flex
       textAlign={'center'}
