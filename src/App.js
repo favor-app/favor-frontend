@@ -8,16 +8,14 @@ import {
   Grid,
   theme,
 } from '@chakra-ui/react';
-import Card from './components/Card';
+import FavorCard from './components/FavorCard';
 import Navbar from './components/Navbar';
 
 function App() {
   return (
     <Box>
-      <Card />
-      <Card />
-      <Card />
-      <Card />
+      <FavorCard />
+
       <Box mt="3em">
         <Navbar />
       </Box>

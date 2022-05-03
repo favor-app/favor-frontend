@@ -20,8 +20,8 @@ ReactDOM.render(
   <StrictMode>
     <ChakraProvider  theme={theme}>
       <ColorModeScript />
-      <Landing />
-      {/* <App /> */}
+      {/* <Login /> */}
+      <App />
     </ChakraProvider>
   </StrictMode>,
   document.getElementById('root')

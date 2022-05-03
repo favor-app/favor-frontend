@@ -11,7 +11,6 @@ import {
   IconProps,
   VStack,
 } from '@chakra-ui/react';
-import PillPity from 'pill-pity';
 import Logo from '../assets/logo.png';
 
 export default function Landing() {
@@ -36,7 +35,7 @@ export default function Landing() {
         minH="100vh"
         mx="auto"
       >
-        <Image src={Logo} ml="3" mb="2" w={'13rem'}></Image>
+        <Image src={Logo} ml="3" mb="1rem" w={'12rem'}></Image>
         <Heading
           fontWeight={800}
           fontSize={{ base: '4xl', sm: '6xl', md: '7xl' }}
@@ -53,7 +52,7 @@ export default function Landing() {
         <Text color={'gray.900'} fontSize={{ sm: '20', md: '30' }} mb="1rem">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas
           ligula lectus, convallis vel tincidunt eget, lacinia at lorem.
-          Maecenas at interdum nibh.
+          Maecenas at interdum nibh, convallis vel tincidunt.
         </Text>
 
         <Stack spacing={6} direction={'row'}>
@@ -61,7 +60,8 @@ export default function Landing() {
             fontWeight={'thin'}
             fontSize={'1.2rem'}
             rounded={'1.5rem'}
-            p={'2rem'}
+            mb='2rem'
+            p={'1.8rem'}
             colorScheme={'blue'}
             bg={'blue.600'}
             _hover={{ bg: 'blue.900' }}

@@ -6,12 +6,17 @@ import {
   Input,
   Checkbox,
   Stack,
+  Divider,
+  Center,
   Link,
+  Image,
   Button,
   Heading,
   Text,
   useColorModeValue,
+  HStack,
 } from '@chakra-ui/react';
+import Logo from '../assets/logo.png';
 
 export default function Login() {
   return (
@@ -25,6 +30,7 @@ export default function Login() {
         <Stack align={'center'}>
           <Heading fontSize={'4xl'}>Log in to your account</Heading>
         </Stack>
+
         <Box
           rounded={'lg'}
           bg={useColorModeValue('white', 'gray.700')}
@@ -59,6 +65,12 @@ export default function Login() {
                 Sign in
               </Button>
             </Stack>
+          </Stack>
+          {/* Already User Line */}
+          <Stack pt={6}>
+            <Text align={'center'}>
+              First time user? <Link color={'blue.400'}>Signup</Link>
+            </Text>
           </Stack>
         </Box>
       </Stack>
