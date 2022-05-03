@@ -8,23 +8,20 @@ import {
   Grid,
   theme,
 } from '@chakra-ui/react';
-import { Logo } from './Logo';
+import Card from './components/Card';
+import Navbar from './components/Navbar';
 
 function App() {
   return (
-    <ChakraProvider theme={theme}>
-      <Box textAlign="center" fontSize="xl">
-        <Grid minH="100vh" p={3}>
-          <VStack spacing={8}>
-            <Logo h="40vmin" pointerEvents="none" />
-            <Text>
-              Edit <Code fontSize="xl">src/App.js</Code> and save to reload.
-            </Text>
-              Learn Chakra
-          </VStack>
-        </Grid>
+    <Box>
+      <Card />
+      <Card />
+      <Card />
+      <Card />
+      <Box mt="2em">
+        <Navbar />
       </Box>
-    </ChakraProvider>
+    </Box>
   );
 }
 

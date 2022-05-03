@@ -9,7 +9,7 @@ ReactDOM.render(
   <StrictMode>
     <ChakraProvider  theme={theme}>
       <ColorModeScript />
-      <Signup />
+      <App />
     </ChakraProvider>
   </StrictMode>,
   document.getElementById('root')
