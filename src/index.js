@@ -1,15 +1,26 @@
-import { ChakraProvider, ColorModeScript, theme } from '@chakra-ui/react';
+import { ChakraProvider, ColorModeScript, extendTheme } from '@chakra-ui/react';
 import React, { StrictMode } from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
+import Landing from './pages/Landing';
+import '@fontsource/raleway/400.css'
+import '@fontsource/open-sans/700.css'
+
+const theme = extendTheme({
+  fonts: {
+    heading: 'Open Sans, sans-serif',
+    body: 'Raleway, sans-serif',
+  },
+})
 
 ReactDOM.render(
   <StrictMode>
     <ChakraProvider  theme={theme}>
       <ColorModeScript />
-      <App />
+      <Landing />
+      {/* <App /> */}
     </ChakraProvider>
   </StrictMode>,
   document.getElementById('root')
