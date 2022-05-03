@@ -1,6 +1,7 @@
 import {
   Flex,
   Box,
+  Image,  
   Container,
   Heading,
   Stack,
@@ -16,41 +17,45 @@ export default function Landing() {
     <Flex
       textAlign={'center'}
       align="center"
-      justify="center"s
+      justify="center"
+      s
       direction="column"
-      maxW="70vw  "
+      maxW="65vw  "
       minH="100vh"
       mx="auto"
     >
+      <Image src='https://i.ibb.co/JqpWB4c/Picture1.png' w={'20rem'}></Image>
       <Heading
         fontWeight={600}
         fontSize={{ base: '5xl', sm: '8xl', md: '10xl' }}
         lineHeight={'110%'}
-        my='1rem'
+        my="1rem"
+        color={'blue.400'}
       >
-        Meeting scheduling{' '}
-        <Text as={'span'} color={'blue.400'} >
-          made easy
+        Need something in a hurry?{' '}
+        <Text as={'span'} color={'black'}>
+          Ask for it.
         </Text>
       </Heading>
 
-      <Text color={'gray.500'} fontSize={{ sm: '20', md: '30' }} mb='1rem'>
-        Never miss a meeting. Never be late for one too. Keep track of your
-        meetings and receive smart reminders in appropriate times. Read your
-        smart “Daily Agenda” every morning.
+      <Text color={'gray.500'} fontSize={{ sm: '20', md: '30' }} mb="1rem">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ligula
+        lectus, convallis vel tincidunt eget, lacinia at lorem. Maecenas at
+        interdum nibh. 
       </Text>
 
       <Stack spacing={6} direction={'row'}>
         <Button
-          rounded={'0.5rem'}
-          px={'1rem'}
+          fontSize={'1.2rem'}
+          rounded={'1rem'}
+          p={'1.5rem'}
           colorScheme={'blue'}
           bg={'blue.400'}
           _hover={{ bg: 'blue.500' }}
         >
           Get started
         </Button>
-        <Button rounded={'0.5rem'} px={'1rem'}>
+        <Button rounded={'1rem'} p={'1.5rem'} fontSize={'1.2rem'}>
           Learn more
         </Button>
       </Stack>
