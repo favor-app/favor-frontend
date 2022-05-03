@@ -13,8 +13,8 @@ const Card = () => {
   
   return (
     <Flex
-      bg={useColorModeValue("#F9FAFB", "gray.600")}
-      p={50}
+      // bg={useColorModeValue("#F9FAFB", "borderTopLeftRadius: .600")}
+      p={5}
       w="full"
       alignItems="center"
       justifyContent="center"
@@ -25,8 +25,8 @@ const Card = () => {
         py={4}
         rounded="lg"
         shadow="lg"
-        bg={useColorModeValue("white", "gray.800")}
-        maxW="2xl"
+        bg={useColorModeValue("white", "blue.600")}
+        maxW="5xl"
       >
         <Flex justifyContent="space-between" alignItems="center">
           <chakra.span
@@ -38,7 +38,7 @@ const Card = () => {
           <Link
             px={3}
             py={1}
-            bg="gray.600"
+            bg="blue.600"
             color="gray.100"
             fontSize="sm"
             fontWeight="700"
@@ -52,7 +52,7 @@ const Card = () => {
         <Box mt={2}>
           <Link
             fontSize="2xl"
-            color={useColorModeValue("gray.700", "white")}
+            color={useColorModeValue("blue.700", "white")}
             fontWeight="700"
             _hover={{
               color: useColorModeValue("gray.600", "gray.200"),
@@ -61,7 +61,7 @@ const Card = () => {
           >
             Accessibility tools for designers and developers
           </Link>
-          <chakra.p mt={2} color={useColorModeValue("gray.600", "gray.300")}>
+          <chakra.p mt={2} color={useColorModeValue("black", "black")}>
             Lorem ipsum dolor sit, amet consectetur adipisicing elit. Tempora
             expedita dicta totam aspernatur doloremque. Excepturi iste iusto eos
             enim reprehenderit nisi, accusamus delectus nihil quis facere in

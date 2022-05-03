@@ -26,18 +26,18 @@ export default function Navbar() {
   return (
     <Box>
       <div
-          style={{
-            position: 'fixed',
-            left: 0,
-            bottom: 0,
-            right: 0,
-            // background: '#B0C4DE',
-            // borderTopLeftRadius: '2em',
-            // borderTopRightRadius: '2em',
-            background: 'linear-gradient(to bottom , transparent, white, white)',
-          }}
-        >
-      <DesktopNav />
+        style={{
+          position: 'fixed',
+          left: 0,
+          bottom: 0,
+          right: 0,
+          // background: '#B0C4DE',
+          // borderTopLeftRadius: '2em',
+          // borderTopRightRadius: '2em',
+          background: 'linear-gradient(to bottom , transparent, white)',
+        }}
+      >
+        <DesktopNav />
       </div>
     </Box>
   );
@@ -54,17 +54,17 @@ const DesktopNav = () => {
     >
       <Box py="0.5em">
         <Link>
-          <Icon as={BiHomeAlt} w={10} h={10} />
+          <Icon as={BiHomeAlt} w={10} h={10} color="blue.600" />
         </Link>
       </Box>
       <Box py="0.5em">
         <Link>
-          <Icon as={BiPlus} w={10} h={10} />
+          <Icon as={BiPlus} w={10} h={10} color="blue.600" />
         </Link>
       </Box>
       <Box py="0.5em">
         <Link>
-          <Icon as={BiUser} w={10} h={10} />
+          <Icon as={BiUser} w={10} h={10} color="blue.600" />
         </Link>
       </Box>
     </Flex>

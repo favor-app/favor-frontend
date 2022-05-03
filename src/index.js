@@ -7,11 +7,12 @@ import Signup from './pages/Signup';
 import Landing from './pages/Landing';
 import '@fontsource/raleway/400.css'
 import '@fontsource/open-sans/700.css'
+import "@fontsource/inter"
 
 const theme = extendTheme({
   fonts: {
-    heading: 'Open Sans, sans-serif',
-    body: 'Raleway, sans-serif',
+    heading: 'Inter, sans-serif',
+    body: 'Inter, sans-serif',
   },
 })
 

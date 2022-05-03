@@ -1,7 +1,7 @@
 import {
   Flex,
   Box,
-  Image,  
+  Image,
   Container,
   Heading,
   Stack,
@@ -11,54 +11,66 @@ import {
   IconProps,
   VStack,
 } from '@chakra-ui/react';
+import PillPity from 'pill-pity';
+import Logo from '../assets/logo.png';
 
 export default function Landing() {
   return (
-    <Flex
-      textAlign={'center'}
-      align="center"
-      justify="center"
-      s
-      direction="column"
-      maxW="65vw  "
-      minH="100vh"
-      mx="auto"
+    <div
+      style={{
+        position: 'fixed',
+        top: '0px',
+        left: '0px',
+        height: '100%',
+        width: '100%',
+
+        background: 'radial-gradient(at center,white, #d4e5fa )',
+      }}
     >
-      <Image src='https://i.ibb.co/JqpWB4c/Picture1.png' w={'20rem'}></Image>
-      <Heading
-        fontWeight={600}
-        fontSize={{ base: '5xl', sm: '8xl', md: '10xl' }}
-        lineHeight={'110%'}
-        my="1rem"
-        color={'blue.400'}
+      <Flex
+        textAlign={'center'}
+        align="center"
+        justify="center"
+        direction="column"
+        maxW="60vw  "
+        minH="100vh"
+        mx="auto"
       >
-        Need something in a hurry?{' '}
-        <Text as={'span'} color={'black'}>
-          Ask for it.
-        </Text>
-      </Heading>
-
-      <Text color={'gray.500'} fontSize={{ sm: '20', md: '30' }} mb="1rem">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ligula
-        lectus, convallis vel tincidunt eget, lacinia at lorem. Maecenas at
-        interdum nibh. 
-      </Text>
-
-      <Stack spacing={6} direction={'row'}>
-        <Button
-          fontSize={'1.2rem'}
-          rounded={'1rem'}
-          p={'1.5rem'}
-          colorScheme={'blue'}
-          bg={'blue.400'}
-          _hover={{ bg: 'blue.500' }}
+        <Image src={Logo} ml="3" mb="2" w={'13rem'}></Image>
+        <Heading
+          fontWeight={800}
+          fontSize={{ base: '4xl', sm: '6xl', md: '7xl' }}
+          lineHeight={'110%'}
+          mb="1rem"
+          color={'blue.600'}
         >
-          Get started
-        </Button>
-        <Button rounded={'1rem'} p={'1.5rem'} fontSize={'1.2rem'}>
-          Learn more
-        </Button>
-      </Stack>
-    </Flex>
+          Need something in a hurry?{' '}
+          <Text as={'span'} color={'black'}>
+            Ask for it.
+          </Text>
+        </Heading>
+
+        <Text color={'gray.900'} fontSize={{ sm: '20', md: '30' }} mb="1rem">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas
+          ligula lectus, convallis vel tincidunt eget, lacinia at lorem.
+          Maecenas at interdum nibh.
+        </Text>
+
+        <Stack spacing={6} direction={'row'}>
+          <Button
+            fontWeight={'thin'}
+            fontSize={'1.2rem'}
+            rounded={'1.5rem'}
+            p={'2rem'}
+            colorScheme={'blue'}
+            bg={'blue.600'}
+            _hover={{ bg: 'blue.900' }}
+          >
+            Get started
+          </Button>
+        </Stack>
+      </Flex>
+      {/* <Box mb='3rem'></Box> */}
+    </div>
   );
 }

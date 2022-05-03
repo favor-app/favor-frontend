@@ -18,7 +18,7 @@ function App() {
       <Card />
       <Card />
       <Card />
-      <Box mt="2em">
+      <Box mt="3em">
         <Navbar />
       </Box>
     </Box>
