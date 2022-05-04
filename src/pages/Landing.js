@@ -59,7 +59,7 @@ export default function Landing() {
           <Button
             fontWeight={'thin'}
             fontSize={'1.2rem'}
-            rounded={'1.5rem'}
+            rounded={'2xl'}
             mb='2rem'
             p={'1.8rem'}
             colorScheme={'blue'}
@@ -70,7 +70,6 @@ export default function Landing() {
           </Button>
         </Stack>
       </Flex>
-      {/* <Box mb='3rem'></Box> */}
     </div>
   );
 }

@@ -1,13 +1,16 @@
 import { ChakraProvider, ColorModeScript, extendTheme } from '@chakra-ui/react';
 import React, { StrictMode } from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
+
+import UserProfile from './pages/UserProfile'
+import FavorStatus from './pages/FavorStatus';
+import FavorDescription from './pages/FavorDescription';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Landing from './pages/Landing';
 import '@fontsource/raleway/400.css'
 import '@fontsource/open-sans/700.css'
-import "@fontsource/inter"
+import "@fontsource/inter/500.css"
 
 const theme = extendTheme({
   fonts: {
@@ -20,8 +23,8 @@ ReactDOM.render(
   <StrictMode>
     <ChakraProvider  theme={theme}>
       <ColorModeScript />
-      {/* <Login /> */}
-      <App />
+      <Landing />
+      {/* <FavorStatus /> */}
     </ChakraProvider>
   </StrictMode>,
   document.getElementById('root')
