@@ -21,9 +21,9 @@ const FavorCard = props => {
       <></>
     );
   return (
-    <Flex  py={'1rem'} alignItems="center" justifyContent="center">
+    <Flex  py={'1rem'} alignItems="center" justifyContent="center" >
       <Box
-        w={'full'}
+        w='full'
         px={'1rem'}
         pt={'1rem'}
         rounded="2xl"

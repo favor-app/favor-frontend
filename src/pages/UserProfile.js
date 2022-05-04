@@ -28,7 +28,7 @@ function FavorDescription() {
         justifyContent="center"
         direction={'column'}
         px="2rem"
-        py="1rem"
+        py="2rem"
         maxW={{ lg: '4xl' }}
       >
         <Heading fontSize={{ base: '2xl', lg: '3xl' }} mb="1rem">

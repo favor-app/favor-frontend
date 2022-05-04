@@ -4,15 +4,7 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 
 import App from './App';
-import UserProfile from './pages/UserProfile';
-import FavorStatus from './pages/FavorStatus';
-import FavorDescription from './pages/FavorDescription';
-import Login from './pages/Login';
-import Signup from './pages/Signup';
-import Landing from './pages/Landing';
 
-import FavorRequest from './pages/FavorRequest';
-import Demand from './pages/Demand';
 import '@fontsource/raleway/400.css';
 import '@fontsource/open-sans/700.css';
 import '@fontsource/inter/500.css';

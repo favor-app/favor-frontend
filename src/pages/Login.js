@@ -6,32 +6,25 @@ import {
   Input,
   Checkbox,
   Stack,
-  Divider,
-  Center,
   Link,
-  Image,
   Button,
   Heading,
   Text,
   useColorModeValue,
-  HStack,
 } from '@chakra-ui/react';
-import Logo from '../assets/logo.png';
 
 export default function Login() {
   return (
     <Flex
       minH={'100vh'}
-      minW={'80vw'}
       align={'center'}
       justify={'center'}
       bg={useColorModeValue('gray.50', 'gray.800')}
     >
-      <Stack spacing={8} mx={'auto'} minWidth="60%" py={12} px={6}>
+      <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
         <Stack align={'center'}>
           <Heading fontSize={'4xl'}>Log in to your account</Heading>
         </Stack>
-
         <Box
           rounded={'lg'}
           bg={useColorModeValue('white', 'gray.700')}
@@ -66,12 +59,6 @@ export default function Login() {
                 Sign in
               </Button>
             </Stack>
-          </Stack>
-          {/* Already User Line */}
-          <Stack pt={6}>
-            <Text align={'center'}>
-              First time user? <Link color={'blue.400'}>Signup</Link>
-            </Text>
           </Stack>
         </Box>
       </Stack>

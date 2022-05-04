@@ -6,6 +6,8 @@ import FavorDescription from './pages/FavorDescription';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Landing from './pages/Landing';
+import FavorRequest from './pages/FavorRequest';
+import Demand from './pages/Demand';
 
 function App() {
   return (
@@ -16,6 +18,8 @@ function App() {
         <Route path="favor-status" element={<FavorStatus />} />
         <Route path="favor-description" element={<FavorDescription />} />
         <Route path="user-profile" element={<UserProfile />} />
+        <Route path="favor-request" element={<FavorRequest />} />
+        <Route path="demand" element={<Demand />} />
       </Routes>
   );
 }
