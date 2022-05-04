@@ -10,6 +10,9 @@ import FavorDescription from './pages/FavorDescription';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Landing from './pages/Landing';
+
+import FavorRequest from './pages/FavorRequest';
+import Demand from './pages/Demand';
 import '@fontsource/raleway/400.css';
 import '@fontsource/open-sans/700.css';
 import '@fontsource/inter/500.css';
