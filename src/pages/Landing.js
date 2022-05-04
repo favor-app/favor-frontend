@@ -12,8 +12,11 @@ import {
   VStack,
 } from '@chakra-ui/react';
 import Logo from '../assets/logo.png';
+import { useNavigate } from "react-router-dom";
+
 
 export default function Landing() {
+  const navigate = useNavigate();
   return (
     <div
       style={{
@@ -59,18 +62,18 @@ export default function Landing() {
           <Button
             fontWeight={'thin'}
             fontSize={'1.2rem'}
-            rounded={'1.5rem'}
+            rounded={'2xl'}
             mb='2rem'
             p={'1.8rem'}
             colorScheme={'blue'}
             bg={'blue.600'}
             _hover={{ bg: 'blue.900' }}
+            onClick={ async => {navigate('/login')}}
           >
             Get started
           </Button>
         </Stack>
       </Flex>
-      {/* <Box mb='3rem'></Box> */}
     </div>
   );
 }

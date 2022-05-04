@@ -1,7 +1,6 @@
 import {
   Box,
   Flex,
-  Icon,
   Text,
   IconButton,
   Button,
@@ -18,11 +17,13 @@ import {
   HStack,
 } from '@chakra-ui/react';
 
+
 import { BiHomeAlt } from 'react-icons/bi';
 import { BiPlus } from 'react-icons/bi';
 import { BiUser } from 'react-icons/bi';
+import MyIcon from './MyIcon';
 
-export default function Navbar() {
+export default function Navbar(props) {
   return (
     <Box>
       <div
@@ -37,34 +38,33 @@ export default function Navbar() {
           background: 'linear-gradient(to bottom , transparent, white)',
         }}
       >
-        <DesktopNav />
+        <DesktopNav active={props.active}/>
       </div>
     </Box>
   );
 }
 
-const DesktopNav = () => {
+const DesktopNav = (props) => {
   const linkColor = useColorModeValue('gray.600', 'gray.200');
   const linkHoverColor = useColorModeValue('gray.800', 'white');
-
   return (
     <Flex
       justify={'space-between'}
-      mx={{ base: '1em', md: '10em', lg: '20em' }}
+      mx={{ base: '5vw', md: '10vw', lg: '20vw' }}
     >
       <Box py="0.5em">
         <Link>
-          <Icon as={BiHomeAlt} w={10} h={10} color="blue.600" />
+          <MyIcon as={BiHomeAlt} color={props.active === 1 ? 'blue.600' : 'gray.600'} />
         </Link>
       </Box>
       <Box py="0.5em">
         <Link>
-          <Icon as={BiPlus} w={10} h={10} color="blue.600" />
+          <MyIcon as={BiPlus} color={props.active === 2 ? 'blue.600' : 'gray.600'} />
         </Link>
       </Box>
       <Box py="0.5em">
         <Link>
-          <Icon as={BiUser} w={10} h={10} color="blue.600" />
+          <MyIcon as={BiUser} color={props.active === 3 ? 'blue.600' : 'gray.600'} />
         </Link>
       </Box>
     </Flex>

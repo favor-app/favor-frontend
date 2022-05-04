@@ -9,23 +9,25 @@ import {
   Link,
 } from '@chakra-ui/react';
 
-const FavorCard = () => {
+const FavorCard = props => {
+  let description;
+  description =
+    props.description === 'show' ? (
+      <Text mt={2} color={'gray.600'}>
+        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Tempora
+        expedita dicta totam aspernatur doloremque.
+      </Text>
+    ) : (
+      <></>
+    );
   return (
-    <Flex
-      // bg={useColorModeValue("#F9FAFB", "borderTopLeftRadius: .600")}
-      p={5}
-      w="full"
-      alignItems="center"
-      justifyContent="center"
-    >
+    <Flex  py={'1rem'} alignItems="center" justifyContent="center">
       <Box
-        mx="auto"
-        px={8}
-        py={4}
-        rounded="lg"
+        w={'full'}
+        px={'1rem'}
+        pt={'1rem'}
+        rounded="2xl"
         shadow="lg"
-        bg={useColorModeValue('white', 'blue.600')}
-        maxW="5xl"
       >
         <Flex justifyContent="space-between" alignItems="center">
           <chakra.span
@@ -41,7 +43,7 @@ const FavorCard = () => {
             color="gray.100"
             fontSize="sm"
             fontWeight="700"
-            rounded="md"
+            rounded="lg"
             _hover={{ bg: 'gray.500' }}
           >
             Category
@@ -75,13 +77,7 @@ const FavorCard = () => {
               <Text>Expires in 10 minutes</Text>
             </Flex>
           </Flex>
-       
-          <chakra.p mt={2} color={useColorModeValue('black', 'black')}>
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Tempora
-            expedita dicta totam aspernatur doloremque. Excepturi iste iusto eos
-            enim reprehenderit nisi, accusamus delectus nihil quis facere in
-            modi ratione libero!
-          </chakra.p>
+          {description}
         </Box>
 
         <Flex alignItems="center" mt={4}></Flex>
