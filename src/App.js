@@ -15,7 +15,11 @@ function App() {
   return (
     <Box>
       <FavorCard />
-
+      <FavorCard />
+      <FavorCard />
+      <FavorCard />
+      <FavorCard />
+      <FavorCard />
       <Box mt="3em">
         <Navbar />
       </Box>
