@@ -12,8 +12,35 @@ import {
   Text,
   useColorModeValue,
 } from '@chakra-ui/react';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { useState, useRef, useEffect } from 'react';
 
 export default function Login() {
+  const navigate = useNavigate();
+  const userRef = useRef();
+  const errRef = useRef();
+
+  const [user, setUser] = useState('');
+  const [pwd, setPwd] = useState('');
+  const [errMsg, setErrMsg] = useState('');
+  const [success, setSuccess] = useState(false);
+
+  useEffect(() => {
+    userRef.current.focus();
+  }, []);
+
+  useEffect(() => {
+    setErrMsg('');
+  }, [user, pwd]);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    console.log("Email: "+user);
+    setUser('');
+    setPwd('');
+  }
+
   return (
     <Flex
       minH={'100vh'}
@@ -31,16 +58,30 @@ export default function Login() {
           boxShadow={'lg'}
           p={8}
         >
+          <form onSubmit={handleSubmit}>
           <Stack spacing={4}>
-            <FormControl id="email">
-              <FormLabel>Email address</FormLabel>
-              <Input type="email" />
-            </FormControl>
-            <FormControl id="password">
-              <FormLabel>Password</FormLabel>
-              <Input type="password" />
-            </FormControl>
-            <Stack spacing={10}>
+           
+              <FormControl id="email" isRequired>
+                <FormLabel>Email address</FormLabel>
+                <Input
+                  type="email"
+                  placeholder="bruin@ucla.edu"
+                  ref={userRef}
+                  onChange={e => setUser(e.target.value)}
+                  value={user}
+                />
+              </FormControl>
+              <FormControl id="password" isRequired>
+                <FormLabel>Password</FormLabel>
+                <Input
+                  type="password"
+                  placeholder="••••••••••"
+                  ref={userRef}
+                  onChange={e => setPwd(e.target.value)}
+                  value={pwd}
+                />
+              </FormControl>
+
               <Stack
                 direction={{ base: 'column', sm: 'row' }}
                 align={'start'}
@@ -50,6 +91,7 @@ export default function Login() {
                 <Link color={'blue.400'}>Forgot password?</Link>
               </Stack>
               <Button
+                type="submit"
                 bg={'blue.400'}
                 color={'white'}
                 _hover={{
@@ -58,8 +100,23 @@ export default function Login() {
               >
                 Sign in
               </Button>
+         
+            {/* Already User Line */}
+            <Stack pt={6}>
+              <Text align={'center'}>
+                First time user?{' '}
+                <Link
+                  color={'blue.400'}
+                  onClick={async => {
+                    navigate('/signup');
+                  }}
+                >
+                  Sign-up
+                </Link>
+              </Text>
             </Stack>
           </Stack>
+          </form>
         </Box>
       </Stack>
     </Flex>

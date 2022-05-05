@@ -18,10 +18,11 @@ import {
 } from '@chakra-ui/react';
 import { useState } from 'react';
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
+import { useNavigate } from 'react-router-dom';
 
 export default function Signup() {
   const [showPassword, setShowPassword] = useState(false);
-
+  const navigate = useNavigate();
   return (
     <Flex
       minH={'100vh'}
@@ -49,13 +50,13 @@ export default function Signup() {
               <Box>
                 <FormControl id="firstName" isRequired>
                   <FormLabel>First Name</FormLabel>
-                  <Input type="text" placeholder='Happy'/>
+                  <Input type="text" placeholder="Happy" />
                 </FormControl>
               </Box>
               <Box>
                 <FormControl id="lastName">
                   <FormLabel>Last Name</FormLabel>
-                  <Input type="text" placeholder='Bruin'/>
+                  <Input type="text" placeholder="Bruin" />
                 </FormControl>
               </Box>
             </HStack>
@@ -63,21 +64,23 @@ export default function Signup() {
             {/* Email Input */}
             <FormControl id="email" isRequired>
               <FormLabel>Email address</FormLabel>
-              <Input type="email" placeholder='bruin@ucla.edu'/>
+              <Input type="email" placeholder="bruin@ucla.edu" />
             </FormControl>
 
             {/* Phone Input */}
             <FormControl id="phone" isRequired>
               <FormLabel>Phone Number</FormLabel>
-              <Input type='number' placeholder='123-456-7890'  >
-              </Input>
+              <Input type="number" placeholder="123-456-7890"></Input>
             </FormControl>
 
             {/* Password Input */}
             <FormControl id="password" isRequired>
               <FormLabel>Password</FormLabel>
               <InputGroup>
-                <Input type={showPassword ? 'text' : 'password'} placeholder='••••••••••' />
+                <Input
+                  type={showPassword ? 'text' : 'password'}
+                  placeholder="••••••••••"
+                />
                 <InputRightElement h={'full'}>
                   <Button
                     variant={'ghost'}
@@ -95,7 +98,10 @@ export default function Signup() {
             <FormControl id="password" isRequired>
               <FormLabel>Re-Enter Password</FormLabel>
               <InputGroup>
-                <Input type={showPassword ? 'text' : 'password'} placeholder='••••••••••' />
+                <Input
+                  type={showPassword ? 'text' : 'password'}
+                  placeholder="••••••••••"
+                />
                 <InputRightElement h={'full'}>
                   <Button
                     variant={'ghost'}
@@ -127,7 +133,15 @@ export default function Signup() {
             {/* Already User Line */}
             <Stack pt={6}>
               <Text align={'center'}>
-                Already a user? <Link color={'blue.400'}>Login</Link>
+                Already a user?{' '}
+                <Link
+                  color={'blue.400'}
+                  onClick={async => {
+                    navigate('/login');
+                  }}
+                >
+                  Login
+                </Link>
               </Text>
             </Stack>
           </Stack>

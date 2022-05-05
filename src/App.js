@@ -8,6 +8,7 @@ import Signup from './pages/Signup';
 import Landing from './pages/Landing';
 import FavorRequest from './pages/FavorRequest';
 import Demand from './pages/Demand';
+import Error from './pages/Error';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Route path="user-profile" element={<UserProfile />} />
         <Route path="favor-request" element={<FavorRequest />} />
         <Route path="demand" element={<Demand />} />
+        <Route path="*" element={<Error />} />
       </Routes>
   );
 }
