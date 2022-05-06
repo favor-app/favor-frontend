@@ -35,7 +35,7 @@ export default function Navbar(props) {
           // background: '#B0C4DE',
           // borderTopLeftRadius: '2em',
           // borderTopRightRadius: '2em',
-          background: 'linear-gradient(to bottom , transparent, white)',
+          background: 'linear-gradient(to bottom , transparent, #f7fafc)',
         }}
       >
         <DesktopNav active={props.active}/>
