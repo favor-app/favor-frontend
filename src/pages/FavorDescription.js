@@ -21,7 +21,7 @@ function FavorDescription() {
       <Flex
         mx={'auto'}
         flex="1"
-        minH={'92vh'}
+        minH={'100vh'}
         justifyContent='center'
 
         direction={'column'}
@@ -74,9 +74,9 @@ function FavorDescription() {
           <Link>Start Favor</Link>
         </Button>
       </Flex>
-      <Box mt="3em">
+      {/* <Box mt="3em"> */}
         <Navbar active={1} />
-      </Box>
+      {/* </Box> */}
     </Box>
   );
 }
