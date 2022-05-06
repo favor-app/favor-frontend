@@ -2,7 +2,7 @@ import { ChakraProvider, ColorModeScript, extendTheme } from '@chakra-ui/react';
 import React, { StrictMode } from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
-
+import './index.css';
 import App from './App';
 
 import '@fontsource/raleway/400.css';

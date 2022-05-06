@@ -20,11 +20,7 @@ export default function Landing() {
   return (
     <div
       style={{
-        position: 'fixed',
-        top: '0px',
-        left: '0px',
-        height: '100%',
-        width: '100%',
+       
 
         background: 'radial-gradient(at center,white, #d4e5fa )',
       }}

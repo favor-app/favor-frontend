@@ -15,38 +15,50 @@ import {
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useState, useRef, useEffect } from 'react';
+const LOGIN_URL = 'http://localhost:4000/auth/login';
 
 export default function Login() {
   const navigate = useNavigate();
-  const userRef = useRef();
-  const errRef = useRef();
+  // const isMounted = useRef(false);
 
   const [user, setUser] = useState('');
   const [pwd, setPwd] = useState('');
   const [errMsg, setErrMsg] = useState('');
   const [success, setSuccess] = useState(false);
 
-  useEffect(() => {
-    userRef.current.focus();
-  }, []);
+  // useEffect(() => {}, [user, pwd]);
 
   useEffect(() => {
-    setErrMsg('');
-  }, [user, pwd]);
+    if (success === true) {
+      setErrMsg('');
+    }
+  }, [success]);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async e => {
     e.preventDefault();
-    console.log("Email: "+user);
-    setUser('');
-    setPwd('');
-  }
+    try {
+      let authBody = { email: user, password: pwd };
+      const response = await axios.post(LOGIN_URL, authBody);
+      console.log(JSON.stringify(response?.data));
+      console.log(response);
+      setSuccess(true);
+      navigate('/user-profile');
+
+    } catch (err) {
+      setUser('');
+      setPwd('');
+      setErrMsg('Sorry wrong credentials! Please try again!');
+      console.log(err.response);
+    }
+  };
 
   return (
     <Flex
       minH={'100vh'}
+      shrink={'0'}
       align={'center'}
       justify={'center'}
-      bg={useColorModeValue('gray.50', 'gray.800')}
+      bg="gray.50"
     >
       <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
         <Stack align={'center'}>
@@ -59,14 +71,12 @@ export default function Login() {
           p={8}
         >
           <form onSubmit={handleSubmit}>
-          <Stack spacing={4}>
-           
+            <Stack spacing={4}>
               <FormControl id="email" isRequired>
                 <FormLabel>Email address</FormLabel>
                 <Input
                   type="email"
                   placeholder="bruin@ucla.edu"
-                  ref={userRef}
                   onChange={e => setUser(e.target.value)}
                   value={user}
                 />
@@ -76,7 +86,6 @@ export default function Login() {
                 <Input
                   type="password"
                   placeholder="••••••••••"
-                  ref={userRef}
                   onChange={e => setPwd(e.target.value)}
                   value={pwd}
                 />
@@ -100,23 +109,24 @@ export default function Login() {
               >
                 Sign in
               </Button>
-         
-            {/* Already User Line */}
-            <Stack pt={6}>
-              <Text align={'center'}>
-                First time user?{' '}
-                <Link
-                  color={'blue.400'}
-                  onClick={async => {
-                    navigate('/signup');
-                  }}
-                >
-                  Sign-up
-                </Link>
-              </Text>
+
+              {/* Already User Line */}
+              <Stack pt={6}>
+                <Text align={'center'}>
+                  First time user?{' '}
+                  <Link
+                    color={'blue.400'}
+                    onClick={async => {
+                      navigate('/signup');
+                    }}
+                  >
+                    Sign-up
+                  </Link>
+                </Text>
+              </Stack>
             </Stack>
-          </Stack>
           </form>
+          <Text textAlign={'center'} fontSize='xl' color={'red.500'}>{errMsg}</Text>
         </Box>
       </Stack>
     </Flex>
