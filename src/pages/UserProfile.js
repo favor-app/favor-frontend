@@ -18,31 +18,46 @@ import {
 import { ChevronRightIcon } from '@chakra-ui/icons';
 import Navbar from '../components/Navbar';
 import FavorCard from '../components/FavorCard';
+import { useNavigate } from 'react-router-dom';
 
 import axios from 'axios';
 
 import { useState, useRef, useEffect } from 'react';
 const USER_URL = 'http://localhost:4000/users';
 const FAVORS_URL = 'http://localhost:4000/favors/byFavoreeId';
+const LOGOUT_URL = 'http://localhost:4000/auth/logout';
 
 function UserProfile() {
+  const navigate = useNavigate();
   useEffect(() => {
     async function fetchData() {
       const response = await axios.get(USER_URL);
       const userData = await response.data;
       setData(userData);
+      return userData._id;
     }
-    async function fetchFavors() {
-      const response = await axios.get(
-        FAVORS_URL,
-        { params: { favoreeId: userId } }
-      );
+
+    async function fetchFavors(userId) {
+      const response = await axios.get(FAVORS_URL, {
+        params: { favoreeId: userId },
+      });
       const favors = await response.data;
-      console.log(favors);
+      setFavors(favors);
     }
-    fetchData().catch(console.error);
-    fetchFavors().catch(console.error);
+
+    fetchData()
+      .then(userId => {
+        fetchFavors(userId).catch(console.error);
+      })
+      .catch(console.error);
   }, []);
+
+  async function logOut() {
+    const response = await axios.get(LOGOUT_URL);
+    const message = await response.data;
+    console.log(message);
+    navigate('/login');
+  }
 
   function setData(userData) {
     console.log(userData);
@@ -58,17 +73,18 @@ function UserProfile() {
   const [phone, setPhone] = useState('');
   const [coins, setCoins] = useState('');
   const [userId, setUserId] = useState('');
-  const [favors, setFavors] = useState('');
+  const [favors, setFavors] = useState([]);
 
   return (
     <Box>
       <Flex
         mx={'auto'}
-        minH={'92vh'}
+        minH={'100vh'}
         justifyContent="center"
         direction={'column'}
         px="2rem"
-        py="2rem"
+        pt="2rem"
+        pb="3rem"
         maxW={{ lg: '4xl' }}
       >
         <Heading fontSize={{ base: '2xl', lg: '3xl' }} mb="1rem">
@@ -78,7 +94,7 @@ function UserProfile() {
           <Heading fontSize={{ base: 'xl', lg: '2xl' }}>
             Personal Details
           </Heading>
-          <Link color={'blue.500'}>logout</Link>
+          <Link color={'blue.500'} onClick={logOut}>logout</Link>
         </HStack>
         <Box p="1rem" rounded="2xl" shadow="lg" mb="1rem">
           <HStack>
@@ -115,19 +131,19 @@ function UserProfile() {
         <Text fontSize="1.2rem" fontWeight="black" mt="1rem">
           Favor History
         </Text>
-        {/* <FavorCard /> */}
 
-        <Text fontSize="1.2rem" fontWeight="black" mt="1rem">
+        {/* <Text fontSize="1.2rem" fontWeight="black" mt="1rem">
           Completed Favors
-        </Text>
-        {/* <FavorCard /> */}
-        {/* <FavorCard /> */}
-        {/* <FavorCard /> */}
+        </Text> */}
+
+        {favors.map(favor => (
+          <FavorCard details={favor} />
+        ))}
       </Flex>
 
-      <Box mt="3em">
-        <Navbar active={3} />
-      </Box>
+      {/* <Box mt="3em"> */}
+      <Navbar active={3} />
+      {/* </Box> */}
     </Box>
   );
 }

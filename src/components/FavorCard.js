@@ -32,10 +32,10 @@ const FavorCard = props => {
     const date = props.details.favorRequestTime;
     const expiryTimer = props.details.favorRequestTimer;
     const nowDateObj = new Date(Date.now());
-    console.log(date);
+    // console.log(date);
     var oldDateObj = moment(date).add(expiryTimer, 'm').toDate();
     var seconds = nowDateObj - oldDateObj;
-    console.log(seconds);
+    // console.log(seconds);
     var minutes = Math.round(seconds / 60000);
     return minutes;
   };
