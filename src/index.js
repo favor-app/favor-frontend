@@ -5,9 +5,12 @@ import { BrowserRouter } from 'react-router-dom';
 import './index.css';
 import App from './App';
 
+import axios from 'axios';
 import '@fontsource/raleway/400.css';
 import '@fontsource/open-sans/700.css';
 import '@fontsource/inter/500.css';
+axios.defaults.withCredentials = true;
+
 
 const theme = extendTheme({
   fonts: {

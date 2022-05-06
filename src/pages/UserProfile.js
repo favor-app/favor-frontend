@@ -19,7 +19,47 @@ import { ChevronRightIcon } from '@chakra-ui/icons';
 import Navbar from '../components/Navbar';
 import FavorCard from '../components/FavorCard';
 
-function FavorDescription() {
+import axios from 'axios';
+
+import { useState, useRef, useEffect } from 'react';
+const USER_URL = 'http://localhost:4000/users';
+const FAVORS_URL = 'http://localhost:4000/favors/byFavoreeId';
+
+function UserProfile() {
+  useEffect(() => {
+    async function fetchData() {
+      const response = await axios.get(USER_URL);
+      const userData = await response.data;
+      setData(userData);
+    }
+    async function fetchFavors() {
+      const response = await axios.get(
+        FAVORS_URL,
+        { params: { favoreeId: userId } }
+      );
+      const favors = await response.data;
+      console.log(favors);
+    }
+    fetchData().catch(console.error);
+    fetchFavors().catch(console.error);
+  }, []);
+
+  function setData(userData) {
+    console.log(userData);
+    setName(userData.name);
+    setEmail(userData.email);
+    setCoins(userData.favorCoins);
+    setPhone(userData.phone);
+    setUserId(userData._id);
+  }
+
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
+  const [coins, setCoins] = useState('');
+  const [userId, setUserId] = useState('');
+  const [favors, setFavors] = useState('');
+
   return (
     <Box>
       <Flex
@@ -49,10 +89,10 @@ function FavorDescription() {
             />
             <Flex display={'block'} textAlign="center" grow="1">
               <Heading color="gray.900" fontSize={'md'}>
-                Joe Bruin
+                {name}
               </Heading>
-              <Text color={'blue.600'}>joebruin@ucla.edu</Text>
-              <Text color={'gray.900'}>123-456-7890</Text>
+              <Text color={'blue.600'}>{email}</Text>
+              <Text color={'gray.900'}>{phone}</Text>
             </Flex>
           </HStack>
         </Box>
@@ -65,7 +105,7 @@ function FavorDescription() {
           shadow="lg"
           mb="1rem"
         >
-          <Text fontWeight={'extrabold'}>400 💰</Text>
+          <Text fontWeight={'extrabold'}>{coins} 💰</Text>
           <Text>
             Buy
             <ChevronRightIcon w={6} h={6} />
@@ -75,14 +115,14 @@ function FavorDescription() {
         <Text fontSize="1.2rem" fontWeight="black" mt="1rem">
           Favor History
         </Text>
-        <FavorCard />
+        {/* <FavorCard /> */}
 
         <Text fontSize="1.2rem" fontWeight="black" mt="1rem">
           Completed Favors
         </Text>
-        <FavorCard />
-        <FavorCard />
-        <FavorCard />
+        {/* <FavorCard /> */}
+        {/* <FavorCard /> */}
+        {/* <FavorCard /> */}
       </Flex>
 
       <Box mt="3em">
@@ -92,4 +132,4 @@ function FavorDescription() {
   );
 }
 
-export default FavorDescription;
+export default UserProfile;

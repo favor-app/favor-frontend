@@ -39,7 +39,6 @@ export default function Login() {
     try {
       let authBody = { email: user, password: pwd };
       const response = await axios.post(LOGIN_URL, authBody);
-      console.log(JSON.stringify(response?.data));
       console.log(response);
       setSuccess(true);
       navigate('/user-profile');

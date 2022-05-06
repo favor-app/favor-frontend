@@ -51,7 +51,6 @@ export default function Signup() {
         password: password
       };
       const response = await axios.post(SIGNUP_URL, authBody);
-      console.log(JSON.stringify(response?.data));
       console.log(response);
       setSuccess(true);
       navigate('/login');

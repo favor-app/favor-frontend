@@ -9,7 +9,7 @@ import {
   useColorModeValue,
   Link,
 } from '@chakra-ui/react';
-import { RiHandCoinFill } from "react-icons/ri";
+import { RiHandCoinFill } from 'react-icons/ri';
 
 var moment = require('moment');
 var datejs = require('datejs');
@@ -32,7 +32,7 @@ const FavorCard = props => {
     const nowDateObj = new Date(Date.now());
     console.log(date);
     var oldDateObj = moment(date).add(expiryTimer, 'm').toDate();
-    var seconds = (nowDateObj - oldDateObj);
+    var seconds = nowDateObj - oldDateObj;
     console.log(seconds);
     var minutes = Math.round(seconds / 60000);
     return minutes;
@@ -41,15 +41,11 @@ const FavorCard = props => {
   const getDate = () => {
     return moment(props.details.favorRequestTime).format('MMMM D, Y');
   };
+  
+
   return (
-    <Flex  py={'1rem'} alignItems="center" justifyContent="center" >
-      <Box
-        w='full'
-        px={'1rem'}
-        pt={'1rem'}
-        rounded="2xl"
-        shadow="lg"
-      >
+    <Flex py={'1rem'} alignItems="center" justifyContent="center">
+      <Box w="full" px={'1rem'} pt={'1rem'} rounded="2xl" shadow="lg">
         <Flex justifyContent="space-between" alignItems="center">
           <chakra.span
             fontSize="sm"
@@ -94,7 +90,17 @@ const FavorCard = props => {
               >
                 {props.details.title}
               </Link>
-              <Text fontSize="1rem"> <Icon as={RiHandCoinFill} w={5} h={5} color="blue.600" verticalAlign='-4px'/> {props.details.favorCoins} </Text>
+              <Text fontSize="1rem">
+                {' '}
+                <Icon
+                  as={RiHandCoinFill}
+                  w={5}
+                  h={5}
+                  color="blue.600"
+                  verticalAlign="-4px"
+                />{' '}
+                {props.details.favorCoins}{' '}
+              </Text>
               <Text>Expires in {getExpiryTime()} minutes</Text>
             </Flex>
           </Flex>
