@@ -10,11 +10,13 @@ import {
   Link,
 } from '@chakra-ui/react';
 import { RiHandCoinFill } from "react-icons/ri";
+import { useNavigate } from "react-router-dom";
 
 var moment = require('moment');
 var datejs = require('datejs');
 
 const FavorCard = props => {
+  const navigate = useNavigate();
   let description;
   description =
     props.description === 'show' ? (
@@ -71,7 +73,8 @@ const FavorCard = props => {
           </Link>
         </Flex>
 
-        <Box mt={2}>
+        <Box mt={2}
+        onClick={ async => {navigate('/favor-description')}}>
           <Flex alignItems="center">
             <Image
               mr={'1rem'}

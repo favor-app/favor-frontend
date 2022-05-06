@@ -80,9 +80,9 @@ function FavorDescription() {
         <Text fontSize="1.2rem" fontWeight="black" mt="1rem">
           Completed Favors
         </Text>
+        {/* <FavorCard />
         <FavorCard />
-        <FavorCard />
-        <FavorCard />
+        <FavorCard /> */}
       </Flex>
 
       <Box mt="3em">
