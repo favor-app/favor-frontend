@@ -24,7 +24,7 @@ function FavorStatus() {
       alignContent="center"
       direction={'column'}
       p="1rem"
-      minH={'95vh'}
+      minH={'100vh'}
       maxW={{ lg: '4xl' }}
     >
       <Progress
