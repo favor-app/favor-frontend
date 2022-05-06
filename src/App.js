@@ -9,20 +9,6 @@ import Landing from './pages/Landing';
 import FavorRequest from './pages/FavorRequest';
 import Demand from './pages/Demand';
 import Error from './pages/Error';
-import axios from 'axios';
-
-const DEMANDS_URL = 'http://localhost:4000/favors';
-
-const getFavors = async e => {
-  var json = [];
-  try {
-    const json = await axios.get(DEMANDS_URL);
-    return json;
-
-  } catch (err) {
-    return json;
-  }
-};
 
 function App() {
   return (
@@ -34,7 +20,7 @@ function App() {
         <Route path="favor-description" element={<FavorDescription />} />
         <Route path="user-profile" element={<UserProfile />} />
         <Route path="favor-request" element={<FavorRequest />} />
-        <Route path="demand" element={<Demand cards={getFavors()}/>} />
+        <Route path="demand" element={<Demand />} />
         <Route path="*" element={<Error />} />
       </Routes>
   );
