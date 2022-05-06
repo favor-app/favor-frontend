@@ -20,7 +20,7 @@ import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useState, useRef, useEffect } from 'react';
-const SIGNUP_URL = 'http://localhost:4000/auth/register';
+const SIGNUP_URL = process.env.REACT_APP_URL + '/auth/register';
 
 export default function Signup() {
   const navigate = useNavigate();

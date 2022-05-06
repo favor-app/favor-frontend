@@ -28,7 +28,7 @@ import Navbar from '../components/Navbar';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useState, useRef, useEffect } from 'react';
-const FAVOR_URL = 'http://localhost:4000/favors';
+const FAVOR_URL = process.env.REACT_APP_URL + '/favors';
 
 export default function Form() {
   const navigate = useNavigate();
