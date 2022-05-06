@@ -3,9 +3,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 const DemandNav = () => {
     return (
-        <Nav justify variant="tabs" >
+        <Nav justify variant="tabs" defaultActiveKey="/demand">
         <Nav.Item>
-            <Nav.Link >Demands</Nav.Link>
+            <Nav.Link href="/demand">Demands</Nav.Link>
         </Nav.Item>
         <Nav.Item>
             <Nav.Link eventKey="link-1">Offers</Nav.Link>
@@ -14,4 +14,4 @@ const DemandNav = () => {
     );
 }
 
-export default DemandNav;
+export default DemandNav; 

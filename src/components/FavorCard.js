@@ -5,9 +5,14 @@ import {
   Box,
   Image,
   Flex,
+  Icon,
   useColorModeValue,
   Link,
 } from '@chakra-ui/react';
+import { RiHandCoinFill } from "react-icons/ri";
+
+var moment = require('moment');
+var datejs = require('datejs');
 
 const FavorCard = props => {
   let description;
@@ -20,6 +25,22 @@ const FavorCard = props => {
     ) : (
       <></>
     );
+
+  const getExpiryTime = () => {
+    const date = props.details.favorRequestTime;
+    const expiryTimer = props.details.favorRequestTimer;
+    const nowDateObj = new Date(Date.now());
+    console.log(date);
+    var oldDateObj = moment(date).add(expiryTimer, 'm').toDate();
+    var seconds = (nowDateObj - oldDateObj);
+    console.log(seconds);
+    var minutes = Math.round(seconds / 60000);
+    return minutes;
+  };
+
+  const getDate = () => {
+    return moment(props.details.favorRequestTime).format('MMMM D, Y');
+  };
   return (
     <Flex  py={'1rem'} alignItems="center" justifyContent="center" >
       <Box
@@ -34,7 +55,7 @@ const FavorCard = props => {
             fontSize="sm"
             color={useColorModeValue('gray.600', 'gray.400')}
           >
-            Mar 10, 2019
+            {getDate()}
           </chakra.span>
           <Link
             px={3}
@@ -46,7 +67,7 @@ const FavorCard = props => {
             rounded="lg"
             _hover={{ bg: 'gray.500' }}
           >
-            Category
+            {props.details.category}
           </Link>
         </Flex>
 
@@ -71,10 +92,10 @@ const FavorCard = props => {
                   color: useColorModeValue('gray.600', 'gray.200'),
                 }}
               >
-                Buy me a Coffee
+                {props.details.title}
               </Link>
-              <Text>Joe Bruin</Text>
-              <Text>Expires in 10 minutes</Text>
+              <Text fontSize="1rem"> <Icon as={RiHandCoinFill} w={5} h={5} color="blue.600" verticalAlign='-4px'/> {props.details.favorCoins} </Text>
+              <Text>Expires in {getExpiryTime()} minutes</Text>
             </Flex>
           </Flex>
           {description}
