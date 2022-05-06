@@ -44,7 +44,7 @@ function FavorStatus() {
       >
         Favor in-progress
       </Text>
-      <FavorCard />
+      {/* <FavorCard /> */}
 
       <Button
         mx="1rem"

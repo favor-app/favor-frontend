@@ -137,7 +137,7 @@ function UserProfile() {
         </Text> */}
 
         {favors.map(favor => (
-          <FavorCard details={favor} />
+          <FavorCard details={favor} path={'/favor-status'} />
         ))}
       </Flex>
 

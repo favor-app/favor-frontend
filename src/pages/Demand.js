@@ -110,12 +110,13 @@ export default function DemandPage() {
           <MenuItem icon={<FaHandsHelping />}>General Help</MenuItem>
         </MenuList>
       </Menu>
-      {console.log('Cards', cards)}
-      {cards.map(card => (
-        <FavorCard details={card} />
-      ))}
+      <Box mb='1rem'>
+        {cards.map(card => (
+          <FavorCard details={card} path="/favor-description" />
+        ))}
+      </Box>
 
-    <Navbar active={1}/>
-  </Flex>
+      <Navbar active={1} />
+    </Flex>
   );
 }

@@ -71,8 +71,7 @@ const FavorCard = props => {
         </Flex>
 
         <Box mt={2}
-        onClick={ async => {navigate('/favor-description', {state: {
-          showButton: true,
+        onClick={ async => {navigate(props.path, {state: {
           favorDetails: props.details,
           expiry: expiryTime
         }})}}>

@@ -16,28 +16,12 @@ import {
 import FavorCard from '../components/FavorCard';
 import Navbar from '../components/Navbar';
 import Logo from '../assets/logo.png';
-import {useLocation} from 'react-router-dom';
-import { RiHandCoinFill } from "react-icons/ri";
-
+import { useLocation } from 'react-router-dom';
+import { RiHandCoinFill } from 'react-icons/ri';
 
 function FavorDescription() {
   const location = useLocation();
-  let startFavor;
-  startFavor =
-  location.state.showButton === true ? (
-        <Button
-        mt="1.5rem"
-        mb="2rem"
-        p="2rem"
-        rounded={'2xl'}
-        background="blue.500"
-        color={'white'}
-      >
-        <Link>Start Favor</Link>
-      </Button>
-    ) : (
-      <></>
-    );
+
   // console.log(location.state.showButton, location.state.favorDetails);
   return (
     <Box>
@@ -45,8 +29,7 @@ function FavorDescription() {
         mx={'auto'}
         flex="1"
         minH={'100vh'}
-        justifyContent='center'
-
+        justifyContent="center"
         direction={'column'}
         px="2rem"
         py="1rem"
@@ -68,9 +51,12 @@ function FavorDescription() {
         >
           {location.state.favorDetails.title}
         </Text>
-        <Text 
-        fontSize="1.2rem"
-        textAlign={'center'} fontWeight="black" color={'blue.500'}>
+        <Text
+          fontSize="1.2rem"
+          textAlign={'center'}
+          fontWeight="black"
+          color={'blue.500'}
+        >
           {' '}
           <Icon
             as={RiHandCoinFill}
@@ -81,27 +67,36 @@ function FavorDescription() {
           />{' '}
           {location.state.favorDetails.favorCoins}{' '}
         </Text>
-        <Text 
-        fontSize="1.2rem"
-        textAlign={'center'} fontWeight="black" color={'blue.700'}>
+        <Text
+          fontSize="1.2rem"
+          textAlign={'center'}
+          fontWeight="black"
+          color={'blue.700'}
+        >
           Category: {location.state.favorDetails.category}
         </Text>
         <Text fontSize="1.2rem" fontWeight="black" mt="1rem">
           Favor Description:
         </Text>
-        <Text color="gray.500">
-        {location.state.favorDetails.description}
-        </Text>
+        <Text color="gray.500">{location.state.favorDetails.description}</Text>
         <Text fontSize="1.2rem" fontWeight="black" mt="1rem">
           Expires in:
         </Text>
         <Text color="gray.500">{location.state.expiry} Minutes</Text>
 
-        {startFavor}
-
+        <Button
+          mt="1.5rem"
+          mb="2rem"
+          p="2rem"
+          rounded={'2xl'}
+          background="blue.500"
+          color={'white'}
+        >
+          <Link>Start Favor</Link>
+        </Button>
       </Flex>
       {/* <Box mt="3em"> */}
-        <Navbar active={1} />
+      <Navbar active={1} />
       {/* </Box> */}
     </Box>
   );

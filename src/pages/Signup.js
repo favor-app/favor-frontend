@@ -208,7 +208,7 @@ export default function Signup() {
               </Stack>
             </Stack>
           </form>
-          <Text textAlign={'center'} fontSize='xl' color={'red.500'}>{errMsg}!</Text>
+          <Text textAlign={'center'} fontSize='xl' color={'red.500'}>{errMsg}</Text>
         </Box>
       </Stack>
     </Flex>
