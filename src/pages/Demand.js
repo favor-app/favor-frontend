@@ -116,7 +116,7 @@ export default function DemandPage() {
     }
   
 
-    <Navbar />
+    <Navbar active={1}/>
   </Flex>
   );
 }
