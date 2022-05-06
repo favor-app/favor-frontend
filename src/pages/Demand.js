@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Flex,
   Box,
@@ -42,11 +42,33 @@ import {
   RepeatIcon,
   EditIcon,
 } from '@chakra-ui/icons';
+
 import FavorCard from '../components/FavorCard';
+import axios from 'axios';
+axios.defaults.withCredentials = true;
+
+const DEMANDS_URL = 'http://localhost:4000/favors';
 
 
-export default function DemandPage(props) {
-  console.log(props);
+export default function DemandPage() {
+  let [cards,setCards] = useState([]);
+
+  const getFavors = async e => {
+    try {
+      const json = await axios.get(DEMANDS_URL, {withCredentials: true});
+      console.log(json.data);
+      setCards(json.data);
+  
+    } catch (err) {
+      console.log("Didn't update");
+      // cards = [];
+    }
+  };
+
+  useEffect(() => {
+    getFavors();
+  }, []);
+
   return (
   <Flex
     mx={'auto'}
@@ -83,8 +105,9 @@ export default function DemandPage(props) {
         <MenuItem icon={<FaHandsHelping />}>General Help</MenuItem>
       </MenuList>
     </Menu>
+    {console.log("Cards", cards)}
     {
-      props.cards.map((card) => (
+        cards.map((card) => (
           <FavorCard 
             details={card}
           />
