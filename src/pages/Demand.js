@@ -115,7 +115,7 @@ export default function DemandPage() {
         <FavorCard details={card} />
       ))}
 
-      <Navbar />
-    </Flex>
+    <Navbar active={1}/>
+  </Flex>
   );
 }

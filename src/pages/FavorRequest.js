@@ -124,7 +124,7 @@ export default function Form() {
             >
               Post Favor
             </Button>
-            <Navbar/>
+            <Navbar active={2}/>
           </Stack>
         </Stack>
       </Flex>

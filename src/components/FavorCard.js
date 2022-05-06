@@ -44,7 +44,8 @@ const FavorCard = props => {
     return moment(props.details.favorRequestTime).format('MMMM D, Y');
   };
   
-
+  const expiryTime = getExpiryTime();
+  console.log(expiryTime);
   return (
     <Flex py={'1rem'} alignItems="center" justifyContent="center">
       <Box w="full" px={'1rem'} pt={'1rem'} rounded="2xl" shadow="lg">
@@ -70,7 +71,11 @@ const FavorCard = props => {
         </Flex>
 
         <Box mt={2}
-        onClick={ async => {navigate('/favor-description')}}>
+        onClick={ async => {navigate('/favor-description', {state: {
+          showButton: true,
+          favorDetails: props.details,
+          expiry: expiryTime
+        }})}}>
           <Flex alignItems="center">
             <Image
               mr={'1rem'}
@@ -104,7 +109,7 @@ const FavorCard = props => {
                 />{' '}
                 {props.details.favorCoins}{' '}
               </Text>
-              <Text>Expires in {getExpiryTime()} minutes</Text>
+              <Text>Expires in {expiryTime} minutes</Text>
             </Flex>
           </Flex>
           {description}

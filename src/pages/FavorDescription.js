@@ -5,6 +5,7 @@ import {
   Flex,
   Box,
   Text,
+  Icon,
   Center,
   VStack,
   Code,
@@ -15,7 +16,29 @@ import {
 import FavorCard from '../components/FavorCard';
 import Navbar from '../components/Navbar';
 import Logo from '../assets/logo.png';
+import {useLocation} from 'react-router-dom';
+import { RiHandCoinFill } from "react-icons/ri";
+
+
 function FavorDescription() {
+  const location = useLocation();
+  let startFavor;
+  startFavor =
+  location.state.showButton === true ? (
+        <Button
+        mt="1.5rem"
+        mb="2rem"
+        p="2rem"
+        rounded={'2xl'}
+        background="blue.500"
+        color={'white'}
+      >
+        <Link>Start Favor</Link>
+      </Button>
+    ) : (
+      <></>
+    );
+  // console.log(location.state.showButton, location.state.favorDetails);
   return (
     <Box>
       <Flex
@@ -43,36 +66,39 @@ function FavorDescription() {
           fontWeight="black"
           px="1rem"
         >
-          Buy me a coffee
+          {location.state.favorDetails.title}
         </Text>
-        <Text textAlign={'center'} fontWeight="black" color={'blue.500'} fontSize='1.2rem'>
-          Joe Bruin
+        <Text 
+        fontSize="1.2rem"
+        textAlign={'center'} fontWeight="black" color={'blue.500'}>
+          {' '}
+          <Icon
+            as={RiHandCoinFill}
+            w={5}
+            h={5}
+            color="blue.600"
+            verticalAlign="-4px"
+          />{' '}
+          {location.state.favorDetails.favorCoins}{' '}
         </Text>
-        <Text></Text>
+        <Text 
+        fontSize="1.2rem"
+        textAlign={'center'} fontWeight="black" color={'blue.700'}>
+          Category: {location.state.favorDetails.category}
+        </Text>
         <Text fontSize="1.2rem" fontWeight="black" mt="1rem">
           Favor Description:
         </Text>
         <Text color="gray.500">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
-          aliquam nunc vel ex volutpat molestie. Orci varius natoque penatibus
-          et magnis dis parturient montes, nascetur ridiculus mus. Pellentesque
-          aliquet lectus id posuere ultrices.
+        {location.state.favorDetails.description}
         </Text>
         <Text fontSize="1.2rem" fontWeight="black" mt="1rem">
           Expires in:
         </Text>
-        <Text color="gray.500">44 Minutes</Text>
+        <Text color="gray.500">{location.state.expiry} Minutes</Text>
 
-        <Button
-          mt="1.5rem"
-          mb="2rem"
-          p="2rem"
-          rounded={'2xl'}
-          background="blue.500"
-          color={'white'}
-        >
-          <Link>Start Favor</Link>
-        </Button>
+        {startFavor}
+
       </Flex>
       {/* <Box mt="3em"> */}
         <Navbar active={1} />
