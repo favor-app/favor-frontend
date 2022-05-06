@@ -21,11 +21,10 @@ import FavorCard from '../components/FavorCard';
 import { useNavigate } from 'react-router-dom';
 
 import axios from 'axios';
-
 import { useState, useRef, useEffect } from 'react';
-const USER_URL = 'http://localhost:4000/users';
-const FAVORS_URL = 'http://localhost:4000/favors/byFavoreeId';
-const LOGOUT_URL = 'http://localhost:4000/auth/logout';
+const USER_URL = process.env.REACT_APP_URL + '/users';
+const FAVORS_URL = process.env.REACT_APP_URL + '/favors/byFavoreeId';
+const LOGOUT_URL = process.env.REACT_APP_URL + '/auth/logout';
 
 function UserProfile() {
   const navigate = useNavigate();

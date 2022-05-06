@@ -14,7 +14,6 @@ import {
 import Logo from '../assets/logo.png';
 import { useNavigate } from "react-router-dom";
 
-
 export default function Landing() {
   const navigate = useNavigate();
   return (

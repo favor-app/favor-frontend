@@ -47,7 +47,7 @@ import FavorCard from '../components/FavorCard';
 import axios from 'axios';
 axios.defaults.withCredentials = true;
 
-const DEMANDS_URL = 'http://localhost:4000/favors';
+const DEMANDS_URL = process.env.REACT_APP_URL + '/favors';
 
 export default function DemandPage() {
   let [cards, setCards] = useState([]);

@@ -15,7 +15,7 @@ import {
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useState, useRef, useEffect } from 'react';
-const LOGIN_URL = 'http://localhost:4000/auth/login';
+const LOGIN_URL = process.env.REACT_APP_URL + '/auth/login';
 
 export default function Login() {
   const navigate = useNavigate();
@@ -25,7 +25,6 @@ export default function Login() {
   const [pwd, setPwd] = useState('');
   const [errMsg, setErrMsg] = useState('');
   const [success, setSuccess] = useState(false);
-
   // useEffect(() => {}, [user, pwd]);
 
   useEffect(() => {
@@ -37,6 +36,7 @@ export default function Login() {
   const handleSubmit = async e => {
     e.preventDefault();
     try {
+      console.log(LOGIN_URL);
       let authBody = { email: user, password: pwd };
       const response = await axios.post(LOGIN_URL, authBody);
       console.log(response);
