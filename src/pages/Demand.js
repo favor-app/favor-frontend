@@ -5,19 +5,14 @@ import {
   FormControl,
   FormLabel,
   Input,
-  Checkbox,
-  Stack,
-  Divider,
-  Center,
-  Textarea,
-  RadioGroup,
-  Radio,
-  Link,
-  Image,
-  Button,
+  Accordion,
+  AccordionItem,
+  AccordionButton,
+  AccordionPanel,
+  AccordionIcon,
   Heading,
   Icon,
-  Text,
+  Button,
   useColorModeValue,
   InputGroup,
   InputLeftElement,
@@ -27,9 +22,14 @@ import {
   MenuButton,
   MenuList,
   HStack,
+  Tabs,
+  TabList,
+  TabPanels,
+  Tab,
+  TabPanel,
 } from '@chakra-ui/react';
+
 import DemandNav from '../components/DemandNavbar';
-import DemandFavorCard from '../components/DemandFavorCard';
 import Navbar from '../components/Navbar';
 import { SiCoffeescript } from 'react-icons/si';
 import { FaHamburger, FaHandsHelping } from 'react-icons/fa';
@@ -45,27 +45,53 @@ import {
 
 import FavorCard from '../components/FavorCard';
 import axios from 'axios';
-axios.defaults.withCredentials = true;
 
 const DEMANDS_URL = process.env.REACT_APP_URL + '/favors';
+const DEMANDS_CATEG_URL = process.env.REACT_APP_URL + '/favors/byCategory';
+const USER_URL = process.env.REACT_APP_URL + '/users';
 
 export default function DemandPage() {
   let [cards, setCards] = useState([]);
+  let [user, setUser] = useState({});
+  let [category, setCategory] = useState('All');
 
-  const getFavors = async e => {
+  const getFavors = async () => {
+    if (category === 'All') {
+      console.log('All');
+      try {
+        const json = await axios.get(DEMANDS_URL);
+        // console.log(json.data);
+        setCards(json.data);
+      } catch (err) {
+        console.error(err.response);
+      }
+    } else {
+      try {
+        const json = await axios.get(DEMANDS_CATEG_URL,{params: {category: category}} );
+        // console.log(json.data);
+        setCards(json.data);
+      } catch (err) {
+        console.error(err.response);
+      }
+    }
+  };
+
+  const getUser = async () => {
     try {
-      const json = await axios.get(DEMANDS_URL, { withCredentials: true });
-      console.log(json.data);
-      setCards(json.data);
+      const userData = await axios.get(USER_URL);
+      setUser(userData.data);
     } catch (err) {
-      console.log("Didn't update");
-      // cards = [];
+      console.error(err.response);
     }
   };
 
   useEffect(() => {
-    getFavors();
+    getUser();
   }, []);
+
+  useEffect(() => {
+    getFavors();
+  },[category]);
 
   return (
     <Flex
@@ -77,8 +103,8 @@ export default function DemandPage() {
       py="2rem"
       maxW={{ lg: '4xl' }}
     >
-      <Heading as="h1" fontSize={'4xl'} textAlign="center" mb="1rem">
-        Welcome, Joe
+      <Heading as="h1" fontSize={'3xl'} textAlign="center" mb="1rem">
+        Welcome, { (user.name !== undefined) ? user.name.split(" ")[0]: ""}
       </Heading>
 
       <InputGroup>
@@ -94,23 +120,56 @@ export default function DemandPage() {
           rounded="70px"
         />
       </InputGroup>
-      <DemandNav />
-      <Menu>
-        <MenuButton
-          as={HamburgerIcon}
-          h="2rem"
-          w="2rem"
-          variant="outline"
-          my="1rem"
-          mx="auto"
-        />
-        <MenuList>
-          <MenuItem icon={<SiCoffeescript />}>Coffee</MenuItem>
-          <MenuItem icon={<FaHamburger />}>Food</MenuItem>
-          <MenuItem icon={<FaHandsHelping />}>General Help</MenuItem>
-        </MenuList>
-      </Menu>
-      <Box mb='1rem'>
+      <Tabs size="lg" isFitted variant="enclosed">
+        <TabList>
+          <Tab _selected={{ bg: 'gray.100', borderColor: 'gray.200' }}>
+            Demands
+          </Tab>
+          <Tab _selected={{ bg: 'gray.100', borderColor: 'gray.200' }}>
+            Favors
+          </Tab>
+        </TabList>
+      </Tabs>
+
+      <Accordion allowToggle>
+        <AccordionItem>
+          <h2>
+            <AccordionButton>
+              <Box
+                flex="1"
+                textAlign="center"
+                color="gray.500"
+                fontSize={'1.2rem'}
+                py="0.5rem"
+              >
+                Filter by Category:
+              </Box>
+              <AccordionIcon />
+            </AccordionButton>
+          </h2>
+          <AccordionPanel pt={'0.5rem'}>
+            <Flex wrap={'wrap'} justifyContent="center">
+               <Button mx="1rem" mt="0.5rem" onClick={() => {setCategory('All')}}>
+                All
+              </Button>
+              <Button mx="1rem" mt="0.5rem" onClick={() => {setCategory('Coffee')}}>
+                Coffee
+              </Button>
+              <Button mx="1rem" mt="0.5rem" onClick={() => {setCategory('Food')}}>
+                Food
+              </Button>
+              <Button mx="1rem" mt="0.5rem" onClick={() => {setCategory('General Help')}}>
+                General Help
+              </Button> 
+              <Button mx="1rem" mt="0.5rem" onClick={() => {setCategory('Grocery')}}>
+                Grocery
+              </Button> 
+            </Flex>
+          </AccordionPanel>
+        </AccordionItem>
+      </Accordion>
+
+      <Box mb="1rem">
         {cards.map(card => (
           <FavorCard details={card} path="/favor-description" />
         ))}
