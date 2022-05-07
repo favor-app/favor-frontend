@@ -138,7 +138,7 @@ function UserProfile() {
         <Text fontSize="1.2rem" fontWeight="black" mt="1rem">
           Favors Requested by me 
         </Text>
-        {favors.filter(f => f.status == "Accepted").map(favor => (
+        {favors.filter(f => f.status === "Accepted").map(favor => (
           <FavorCard onClick={ async => {navigate('/favor-status', {state: {
             favorDetails: favor,
             isFavoree: true
@@ -146,7 +146,7 @@ function UserProfile() {
           details={favor}/>
         ))}
 
-        {favors.filter(f => f.status == "Requested").map(favor => (
+        {favors.filter(f => f.status === "Requested").map(favor => (
           <FavorCard onClick={ async => {navigate('/favor-status', {state: {
             favorDetails: favor,
             isFavoree: true
@@ -168,14 +168,14 @@ function UserProfile() {
         <Text fontSize="1.2rem" fontWeight="black" mt="1rem">
           History: Favors Requested
         </Text>
-        {favors.filter(f => f.status == "Completed").map(favor => (
+        {favors.filter(f => f.status === "Completed").map(favor => (
           <FavorCard details={favor}/>
         ))}
 
         <Text fontSize="1.2rem" fontWeight="black" mt="1rem">
           History: Favors Offered
         </Text>
-        {accepted_favors.filter(f => f.status == "Completed").map(favor => (
+        {accepted_favors.filter(f => f.status === "Completed").map(favor => (
           <FavorCard details={favor}/>
         ))}
 

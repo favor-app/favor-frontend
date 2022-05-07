@@ -45,12 +45,14 @@ import {
 
 import FavorCard from '../components/FavorCard';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const DEMANDS_URL = process.env.REACT_APP_URL + '/favors';
 const DEMANDS_CATEG_URL = process.env.REACT_APP_URL + '/favors/byCategory';
 const USER_URL = process.env.REACT_APP_URL + '/users';
 
 export default function DemandPage() {
+  const navigate = useNavigate();
   let [cards, setCards] = useState([]);
   let [user, setUser] = useState({});
   let [category, setCategory] = useState('All');
@@ -171,7 +173,10 @@ export default function DemandPage() {
 
       <Box mb="1rem">
         {cards.map(card => (
-          <FavorCard details={card} path="/favor-description" />
+          <FavorCard onClick={ async => {navigate('/favor-description', {state: {
+            favorDetails: card
+          }})}}
+          details={card}/>
         ))}
       </Box>
 
