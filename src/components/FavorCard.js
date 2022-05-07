@@ -21,8 +21,7 @@ const FavorCard = props => {
   description =
     props.description === 'show' ? (
       <Text mt={2} color={'gray.600'}>
-        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Tempora
-        expedita dicta totam aspernatur doloremque.
+        {props.details.description}
       </Text>
     ) : (
       <></>
@@ -45,7 +44,6 @@ const FavorCard = props => {
   };
   
   const expiryTime = getExpiryTime();
-  // console.log(expiryTime);
   return (
     <Flex py={'1rem'} alignItems="center" justifyContent="center">
       <Box w="full" px={'1rem'} pt={'1rem'} rounded="2xl" shadow="lg">
@@ -56,6 +54,20 @@ const FavorCard = props => {
           >
             {getDate()}
           </chakra.span>
+          <Box> 
+          <Link
+            px={3}
+            py={1}
+            mx="0.5rem"
+            bg="yellow.500"
+            color="gray.100"
+            fontSize="sm"
+            fontWeight="700"
+            rounded="lg"
+            _hover={{ bg: 'gray.500' }}
+          >
+            {props.details.status}
+          </Link>
           <Link
             px={3}
             py={1}
@@ -68,13 +80,12 @@ const FavorCard = props => {
           >
             {props.details.category}
           </Link>
+          </Box>
         </Flex>
 
-        <Box mt={2}
-        onClick={ async => {navigate(props.path, {state: {
-          favorDetails: props.details,
-          expiry: expiryTime
-        }})}}>
+        <Box 
+        onClick={props.onClick}
+        mt={2}>
           <Flex alignItems="center">
             <Image
               mr={'1rem'}
