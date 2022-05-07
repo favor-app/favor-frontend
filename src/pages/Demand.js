@@ -16,31 +16,17 @@ import {
   useColorModeValue,
   InputGroup,
   InputLeftElement,
-  ButtonGroup,
-  Menu,
-  MenuItem,
-  MenuButton,
-  MenuList,
-  HStack,
+
   Tabs,
   TabList,
   TabPanels,
   Tab,
   TabPanel,
 } from '@chakra-ui/react';
-
-import DemandNav from '../components/DemandNavbar';
 import Navbar from '../components/Navbar';
-import { SiCoffeescript } from 'react-icons/si';
-import { FaHamburger, FaHandsHelping } from 'react-icons/fa';
+
 import {
-  SearchIcon,
-  IconButton,
-  HamburgerIcon,
-  AddIcon,
-  ExternalLinkIcon,
-  RepeatIcon,
-  EditIcon,
+  SearchIcon
 } from '@chakra-ui/icons';
 
 import FavorCard from '../components/FavorCard';
@@ -55,7 +41,7 @@ export default function DemandPage() {
   const navigate = useNavigate();
   let [cards, setCards] = useState([]);
   let [user, setUser] = useState({});
-  let [category, setCategory] = useState('All');
+  let [category, setCategory] = useState('Coffee');
 
   const getFavors = async () => {
     if (category === 'All') {
@@ -69,7 +55,9 @@ export default function DemandPage() {
       }
     } else {
       try {
-        const json = await axios.get(DEMANDS_CATEG_URL,{params: {category: category}} );
+        const json = await axios.get(DEMANDS_CATEG_URL, {
+          params: { category: category },
+        });
         // console.log(json.data);
         setCards(json.data);
       } catch (err) {
@@ -84,6 +72,7 @@ export default function DemandPage() {
       setUser(userData.data);
     } catch (err) {
       console.error(err.response);
+      navigate('/login');
     }
   };
 
@@ -93,7 +82,7 @@ export default function DemandPage() {
 
   useEffect(() => {
     getFavors();
-  },[category]);
+  }, [category]);
 
   return (
     <Flex
@@ -106,7 +95,7 @@ export default function DemandPage() {
       maxW={{ lg: '4xl' }}
     >
       <Heading as="h1" fontSize={'3xl'} textAlign="center" mb="1rem">
-        Welcome, { (user.name !== undefined) ? user.name.split(" ")[0]: ""}
+        Welcome, {user.name !== undefined ? user.name.split(' ')[0] : ''}
       </Heading>
 
       <InputGroup>
@@ -151,21 +140,51 @@ export default function DemandPage() {
           </h2>
           <AccordionPanel pt={'0.5rem'}>
             <Flex wrap={'wrap'} justifyContent="center">
-               <Button mx="1rem" mt="0.5rem" onClick={() => {setCategory('All')}}>
+              <Button
+                mx="1rem"
+                mt="0.5rem"
+                onClick={() => {
+                  setCategory('All');
+                }}
+              >
                 All
               </Button>
-              <Button mx="1rem" mt="0.5rem" onClick={() => {setCategory('Coffee')}}>
+              <Button
+                mx="1rem"
+                mt="0.5rem"
+                onClick={() => {
+                  setCategory('Coffee');
+                }}
+              >
                 Coffee
               </Button>
-              <Button mx="1rem" mt="0.5rem" onClick={() => {setCategory('Food')}}>
+              <Button
+                mx="1rem"
+                mt="0.5rem"
+                onClick={() => {
+                  setCategory('Food');
+                }}
+              >
                 Food
               </Button>
-              <Button mx="1rem" mt="0.5rem" onClick={() => {setCategory('General Help')}}>
+              <Button
+                mx="1rem"
+                mt="0.5rem"
+                onClick={() => {
+                  setCategory('General Help');
+                }}
+              >
                 General Help
-              </Button> 
-              <Button mx="1rem" mt="0.5rem" onClick={() => {setCategory('Grocery')}}>
+              </Button>
+              <Button
+                mx="1rem"
+                mt="0.5rem"
+                onClick={() => {
+                  setCategory('Grocery');
+                }}
+              >
                 Grocery
-              </Button> 
+              </Button>
             </Flex>
           </AccordionPanel>
         </AccordionItem>
@@ -173,10 +192,16 @@ export default function DemandPage() {
 
       <Box mb="1rem">
         {cards.map(card => (
-          <FavorCard onClick={ async => {navigate('/favor-description', {state: {
-            favorDetails: card
-          }})}}
-          details={card}/>
+          <FavorCard
+            onClick={async => {
+              navigate('/favor-description', {
+                state: {
+                  favorDetails: card,
+                },
+              });
+            }}
+            details={card}
+          />
         ))}
       </Box>
 

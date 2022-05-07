@@ -12,15 +12,13 @@ import {
   VStack,
 } from '@chakra-ui/react';
 import Logo from '../assets/logo.png';
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 
 export default function Landing() {
   const navigate = useNavigate();
   return (
     <div
       style={{
-       
-
         background: 'radial-gradient(at center,white, #d4e5fa )',
       }}
     >
@@ -58,12 +56,14 @@ export default function Landing() {
             fontWeight={'thin'}
             fontSize={'1.2rem'}
             rounded={'2xl'}
-            mb='2rem'
+            mb="2rem"
             p={'1.8rem'}
             colorScheme={'blue'}
             bg={'blue.600'}
             _hover={{ bg: 'blue.900' }}
-            onClick={ async => {navigate('/login')}}
+            onClick={async => {
+              navigate('/demand');
+            }}
           >
             Get started
           </Button>

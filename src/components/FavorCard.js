@@ -9,8 +9,8 @@ import {
   useColorModeValue,
   Link,
 } from '@chakra-ui/react';
-import { RiHandCoinFill } from "react-icons/ri";
-import { useNavigate } from "react-router-dom";
+import { RiHandCoinFill } from 'react-icons/ri';
+import { useNavigate } from 'react-router-dom';
 
 var moment = require('moment');
 var datejs = require('datejs');
@@ -20,7 +20,7 @@ const FavorCard = props => {
   let description;
   description =
     props.description === 'show' ? (
-      <Text mt={2} color={'gray.600'}>
+      <Text mt={2} color={'gray.600'} wordBreak={'break-word'}>
         {props.details.description}
       </Text>
     ) : (
@@ -42,19 +42,12 @@ const FavorCard = props => {
   const getDate = () => {
     return moment(props.details.favorRequestTime).format('MMMM D, Y');
   };
-  
+
   const expiryTime = getExpiryTime();
   return (
     <Flex py={'1rem'} alignItems="center" justifyContent="center">
       <Box w="full" px={'1rem'} pt={'1rem'} rounded="2xl" shadow="lg">
         <Flex justifyContent="space-between" alignItems="center">
-          <chakra.span
-            fontSize="sm"
-            color={useColorModeValue('gray.600', 'gray.400')}
-          >
-            {getDate()}
-          </chakra.span>
-          <Box> 
           <Link
             px={3}
             py={1}
@@ -80,12 +73,10 @@ const FavorCard = props => {
           >
             {props.details.category}
           </Link>
-          </Box>
+          {/* </Box> */}
         </Flex>
 
-        <Box 
-        onClick={props.onClick}
-        mt={2}>
+        <Box onClick={props.onClick} mt={2}>
           <Flex alignItems="center">
             <Image
               mr={'1rem'}
@@ -98,16 +89,17 @@ const FavorCard = props => {
               alt="avatar"
             />
             <Flex display={'block'}>
-              <Link
-                fontSize="2xl"
-                color={useColorModeValue('blue.700', 'white')}
+              <Text 
+               wordBreak={'break-word'}
+                fontSize="lg"
+                color='blue.700'
                 fontWeight="700"
                 _hover={{
                   color: useColorModeValue('gray.600', 'gray.200'),
                 }}
               >
                 {props.details.title}
-              </Link>
+              </Text>
               <Text fontSize="1rem">
                 {' '}
                 <Icon

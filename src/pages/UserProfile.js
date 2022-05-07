@@ -12,7 +12,7 @@ import {
   theme,
   Link,
   Heading,
-  HStack
+  HStack,
 } from '@chakra-ui/react';
 
 import { ChevronRightIcon } from '@chakra-ui/icons';
@@ -53,17 +53,26 @@ function UserProfile() {
 
     fetchData()
       .then(userId => {
-        fetchFavors(userId).catch(console.error);
-        fetchAcceptedFavors(userId).catch(console.error);
+        fetchFavors(userId).catch((err) => console.error(err.response));
+        fetchAcceptedFavors(userId).catch((err) => console.error(err.response));
       })
-      .catch(console.error);
+      .catch(err => {
+        console.error(err.response);
+        navigate('/login');
+      });
   }, []);
 
   async function logOut() {
-    const response = await axios.get(LOGOUT_URL);
-    const message = await response.data;
-    console.log(message);
-    navigate('/login');
+    try{
+      const response = await axios.get(LOGOUT_URL);
+      const message = await response.data;
+      console.log(message);
+      navigate('/login');
+    }
+    catch(err){
+      console.error(err.response);
+    }
+    
   }
 
   function setData(userData) {
@@ -101,7 +110,9 @@ function UserProfile() {
           <Heading fontSize={{ base: 'xl', lg: '2xl' }}>
             Personal Details
           </Heading>
-          <Link color={'blue.500'} onClick={logOut}>logout</Link>
+          <Link color={'blue.500'} onClick={logOut}>
+            logout
+          </Link>
         </HStack>
         <Box p="1rem" rounded="2xl" shadow="lg" mb="1rem">
           <HStack>
@@ -136,49 +147,74 @@ function UserProfile() {
         </Flex>
 
         <Text fontSize="1.2rem" fontWeight="black" mt="1rem">
-          Favors Requested by me 
+          Favors Requested by me
         </Text>
-        {favors.filter(f => f.status === "Accepted").map(favor => (
-          <FavorCard onClick={ async => {navigate('/favor-status', {state: {
-            favorDetails: favor,
-            isFavoree: true
-          }})}}
-          details={favor}/>
-        ))}
+        {favors
+          .filter(f => f.status === 'Accepted')
+          .map(favor => (
+            <FavorCard
+              onClick={async => {
+                navigate('/favor-status', {
+                  state: {
+                    favorDetails: favor,
+                    isFavoree: true,
+                  },
+                });
+              }}
+              details={favor}
+            />
+          ))}
 
-        {favors.filter(f => f.status === "Requested").map(favor => (
-          <FavorCard onClick={ async => {navigate('/favor-status', {state: {
-            favorDetails: favor,
-            isFavoree: true
-          }})}}
-          details={favor}/>
-        ))}
+        {favors
+          .filter(f => f.status === 'Requested')
+          .map(favor => (
+            <FavorCard
+              onClick={async => {
+                navigate('/favor-status', {
+                  state: {
+                    favorDetails: favor,
+                    isFavoree: true,
+                  },
+                });
+              }}
+              details={favor}
+            />
+          ))}
 
         <Text fontSize="1.2rem" fontWeight="black" mt="1rem">
-          Favors Accepted by me 
+          Favors Accepted by me
         </Text>
         {accepted_favors.map(favor => (
-          <FavorCard onClick={ async => {navigate('/favor-status', {state: {
-            favorDetails: favor,
-            isFavoree: false
-          }})}}
-          details={favor}/>
+          <FavorCard
+            onClick={async => {
+              navigate('/favor-status', {
+                state: {
+                  favorDetails: favor,
+                  isFavoree: false,
+                },
+              });
+            }}
+            details={favor}
+          />
         ))}
 
         <Text fontSize="1.2rem" fontWeight="black" mt="1rem">
           History: Favors Requested
         </Text>
-        {favors.filter(f => f.status === "Completed").map(favor => (
-          <FavorCard details={favor}/>
-        ))}
+        {favors
+          .filter(f => f.status === 'Completed')
+          .map(favor => (
+            <FavorCard details={favor} />
+          ))}
 
         <Text fontSize="1.2rem" fontWeight="black" mt="1rem">
           History: Favors Offered
         </Text>
-        {accepted_favors.filter(f => f.status === "Completed").map(favor => (
-          <FavorCard details={favor}/>
-        ))}
-
+        {accepted_favors
+          .filter(f => f.status === 'Completed')
+          .map(favor => (
+            <FavorCard details={favor} />
+          ))}
       </Flex>
 
       {/* <Box mt="3em"> */}

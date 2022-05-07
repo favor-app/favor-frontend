@@ -20,7 +20,7 @@ import {
   Text,
   useColorModeValue,
   HStack,
-  useToast
+  useToast,
 } from '@chakra-ui/react';
 
 import { SiCoffeescript } from 'react-icons/si';
@@ -33,7 +33,7 @@ const FAVOR_URL = process.env.REACT_APP_URL + '/favors';
 const UPDATE_COINS_URL = process.env.REACT_APP_URL + '/users/updateCoins';
 
 export default function Form() {
-  const toast = useToast()
+  const toast = useToast();
   const navigate = useNavigate();
 
   const [expiry, setExpiry] = React.useState('60');
@@ -70,7 +70,11 @@ export default function Form() {
       console.log(response);
       setSuccess(true);
       const updateResponse = await axios.get(UPDATE_COINS_URL, {
-        params: { type: "subtract", favorCoins: coins, userId: response.data.favoreeId}
+        params: {
+          type: 'subtract',
+          favorCoins: coins,
+          userId: response.data.favoreeId,
+        },
       });
       toast({
         title: 'Favor created successfully!',
@@ -81,9 +85,13 @@ export default function Form() {
       });
       navigate('/user-profile');
     } catch (err) {
-      let msg = (err.response.data.message !== undefined) ?  err.response.data.message : err.response.data;
+      let msg =
+        err.response.data.message !== undefined
+          ? err.response.data.message
+          : err.response.data;
       setErrMsg(msg);
       console.error(err.response);
+      if (err.response.data === 'Access Denied') navigate('/login');
     }
   };
 
@@ -195,7 +203,9 @@ export default function Form() {
             >
               Post Favor
             </Button>
-            <Text textAlign={'center'} color='red.400'>{errMsg}</Text>
+            <Text textAlign={'center'} color="red.400">
+              {errMsg}
+            </Text>
             <Navbar active={2} />
           </Stack>
         </form>
