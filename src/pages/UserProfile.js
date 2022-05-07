@@ -12,7 +12,7 @@ import {
   theme,
   Link,
   Heading,
-  HStack,
+  HStack
 } from '@chakra-ui/react';
 
 import { ChevronRightIcon } from '@chakra-ui/icons';
@@ -25,6 +25,7 @@ import { useState, useRef, useEffect } from 'react';
 const USER_URL = process.env.REACT_APP_URL + '/users';
 const FAVORS_URL = process.env.REACT_APP_URL + '/favors/byFavoreeId';
 const LOGOUT_URL = process.env.REACT_APP_URL + '/auth/logout';
+const FAVORS_ACCEPTED_URL = process.env.REACT_APP_URL + '/trades/byFavorerId';
 
 function UserProfile() {
   const navigate = useNavigate();
@@ -44,9 +45,16 @@ function UserProfile() {
       setFavors(favors);
     }
 
+    async function fetchAcceptedFavors(userId) {
+      const response = await axios.get(FAVORS_ACCEPTED_URL);
+      const accepted_favors = await response.data;
+      setAcceptedFavors(accepted_favors);
+    }
+
     fetchData()
       .then(userId => {
         fetchFavors(userId).catch(console.error);
+        fetchAcceptedFavors(userId).catch(console.error);
       })
       .catch(console.error);
   }, []);
@@ -59,7 +67,6 @@ function UserProfile() {
   }
 
   function setData(userData) {
-    console.log(userData);
     setName(userData.name);
     setEmail(userData.email);
     setCoins(userData.favorCoins);
@@ -73,6 +80,7 @@ function UserProfile() {
   const [coins, setCoins] = useState('');
   const [userId, setUserId] = useState('');
   const [favors, setFavors] = useState([]);
+  const [accepted_favors, setAcceptedFavors] = useState([]);
 
   return (
     <Box>
@@ -128,16 +136,49 @@ function UserProfile() {
         </Flex>
 
         <Text fontSize="1.2rem" fontWeight="black" mt="1rem">
-          Favor History
+          Favors Requested by me 
         </Text>
-
-        {/* <Text fontSize="1.2rem" fontWeight="black" mt="1rem">
-          Completed Favors
-        </Text> */}
-
-        {favors.map(favor => (
-          <FavorCard details={favor} path={'/favor-status'} />
+        {favors.filter(f => f.status == "Accepted").map(favor => (
+          <FavorCard onClick={ async => {navigate('/favor-status', {state: {
+            favorDetails: favor,
+            isFavoree: true
+          }})}}
+          details={favor}/>
         ))}
+
+        {favors.filter(f => f.status == "Requested").map(favor => (
+          <FavorCard onClick={ async => {navigate('/favor-status', {state: {
+            favorDetails: favor,
+            isFavoree: true
+          }})}}
+          details={favor}/>
+        ))}
+
+        <Text fontSize="1.2rem" fontWeight="black" mt="1rem">
+          Favors Accepted by me 
+        </Text>
+        {accepted_favors.map(favor => (
+          <FavorCard onClick={ async => {navigate('/favor-status', {state: {
+            favorDetails: favor,
+            isFavoree: false
+          }})}}
+          details={favor}/>
+        ))}
+
+        <Text fontSize="1.2rem" fontWeight="black" mt="1rem">
+          History: Favors Requested
+        </Text>
+        {favors.filter(f => f.status == "Completed").map(favor => (
+          <FavorCard details={favor}/>
+        ))}
+
+        <Text fontSize="1.2rem" fontWeight="black" mt="1rem">
+          History: Favors Offered
+        </Text>
+        {accepted_favors.filter(f => f.status == "Completed").map(favor => (
+          <FavorCard details={favor}/>
+        ))}
+
       </Flex>
 
       {/* <Box mt="3em"> */}
