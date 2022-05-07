@@ -68,8 +68,9 @@ export default function Form() {
       setSuccess(true);
       navigate('/user-profile');
     } catch (err) {
-      setErrMsg(err.response.data);
-      console.log(err.response);
+      let msg = (err.response.data.message !== undefined) ?  err.response.data.message : err.response.data;
+      setErrMsg(msg);
+      console.error(err.response);
     }
   };
 
@@ -181,7 +182,7 @@ export default function Form() {
             >
               Post Favor
             </Button>
-            <Text textAlign={'center'}>{errMsg}</Text>
+            <Text textAlign={'center'} color='red.400'>{errMsg}</Text>
             <Navbar active={2} />
           </Stack>
         </form>
