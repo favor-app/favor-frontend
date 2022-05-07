@@ -12,6 +12,14 @@ import {
   theme,
   Link,
   Heading,
+  Accordion,
+  AccordionItem,
+  AccordionButton,
+  AccordionPanel,
+  AccordionIcon,
+  Tab,
+  Tabs,
+  TabList,
   HStack
 } from '@chakra-ui/react';
 
@@ -26,6 +34,13 @@ const USER_URL = process.env.REACT_APP_URL + '/users';
 const FAVORS_URL = process.env.REACT_APP_URL + '/favors/byFavoreeId';
 const LOGOUT_URL = process.env.REACT_APP_URL + '/auth/logout';
 const FAVORS_ACCEPTED_URL = process.env.REACT_APP_URL + '/trades/byFavorerId';
+const IN_PROGRESS = '0';
+const HISTORY = '1';
+const FAVORS_ACCEPTED_BY_ME = '0';
+const FAVORS_REQUESTED_BY_ME = '1';
+const FAVORS_COMPLETED_BY_ME = '2';
+const FAVORS_COMPLETED_FOR_ME = '3';
+
 
 function UserProfile() {
   const navigate = useNavigate();
@@ -34,6 +49,8 @@ function UserProfile() {
       const response = await axios.get(USER_URL);
       const userData = await response.data;
       setData(userData);
+      setTabVal(IN_PROGRESS);
+      assignPanel();
       return userData._id;
     }
 
@@ -74,6 +91,7 @@ function UserProfile() {
     setUserId(userData._id);
   }
 
+  const [tabVal, setTabVal] = useState('0');
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
@@ -81,7 +99,115 @@ function UserProfile() {
   const [userId, setUserId] = useState('');
   const [favors, setFavors] = useState([]);
   const [accepted_favors, setAcceptedFavors] = useState([]);
+  const [panel, setPanel] = useState(<> </>);
+  const [cards, setCards] = useState(<> </>);
+  const [buttonClick, setButtonClick] = useState('');
 
+  useEffect(() => {
+    assignPanel();
+    if(tabVal == '0')
+    {
+      assignCards(FAVORS_REQUESTED_BY_ME);
+    }
+    if(tabVal == '1')
+    {
+      assignCards(FAVORS_COMPLETED_BY_ME);
+    }
+  }, [tabVal]);
+
+  useEffect(() => {
+    assignCards(buttonClick);
+  }, [buttonClick]);
+
+  function assignPanel() {
+    if (tabVal === IN_PROGRESS)
+      {
+          setPanel(
+          <AccordionPanel pt={'0.5rem'}>
+          <Flex wrap={'wrap'} justifyContent="center">
+             <Button mx="1rem" mt="0.5rem" onClick={() => {setButtonClick(FAVORS_REQUESTED_BY_ME)}}>
+              Favors Requested by Me
+            </Button>
+            <Button mx="1rem" mt="0.5rem" onClick={() => {setButtonClick(FAVORS_ACCEPTED_BY_ME)}}>
+              Favors Accepted by Me
+            </Button>
+            </Flex>
+          </AccordionPanel>
+        )
+      }
+      else {
+      setPanel(
+        <AccordionPanel pt={'0.5rem'}>
+        <Flex wrap={'wrap'} justifyContent="center">
+          <Button mx="1rem" mt="0.5rem" onClick={() => {setButtonClick(FAVORS_COMPLETED_BY_ME)}}>
+            Favors Completed by Me
+          </Button>
+          <Button mx="1rem" mt="0.5rem" onClick={() => {setButtonClick(FAVORS_COMPLETED_FOR_ME)}}>
+            Favors Completed for Me 
+          </Button>
+          </Flex>
+        </AccordionPanel>
+      )
+    }
+  }
+
+  function assignCards(type) {
+    if(type === FAVORS_ACCEPTED_BY_ME)
+    {
+      setCards(
+        <>
+        <Text fontSize="1.2rem" fontWeight="black" mt="1rem">
+        Favors Accepted by Me 
+        </Text>
+        {accepted_favors.filter(f => f.status === "Accepted").map(favor => (
+        <FavorCard onClick={ async => {navigate('/favor-status', {state: {
+          favorDetails: favor,
+          isFavoree: false
+        }})}}
+        details={favor}/>
+      ))}
+      </>)
+    }
+    else if(type === FAVORS_REQUESTED_BY_ME)
+    {
+      setCards(
+        <>
+        <Text fontSize="1.2rem" fontWeight="black" mt="1rem">
+        Favors Requested by Me 
+        </Text>
+        {favors.filter(f => f.status === "Accepted" || f.status === "Requested").map(favor => (
+        <FavorCard onClick={ async => {navigate('/favor-status', {state: {
+          favorDetails: favor,
+          isFavoree: true
+        }})}}
+        details={favor}/>
+      ))}
+      </>)
+    }
+    else if(type === FAVORS_COMPLETED_BY_ME)
+    {
+      setCards(<>
+      <Text fontSize="1.2rem" fontWeight="black" mt="1rem">
+          Favors Completed by Me
+        </Text>
+        {accepted_favors.filter(f => f.status === "Completed").map(favor => (
+          <FavorCard details={favor}/>
+        ))}
+      </>)
+    }
+    else if(type === FAVORS_COMPLETED_FOR_ME)
+    {
+      setCards(<>
+      <Text fontSize="1.2rem" fontWeight="black" mt="1rem">
+        Favors Completed for Me
+        </Text>
+        {favors.filter(f => f.status === "Completed").map(favor => (
+          <FavorCard details={favor}/>
+        ))}
+      </>)
+    }
+  }
+  
   return (
     <Box>
       <Flex
@@ -134,8 +260,41 @@ function UserProfile() {
             <ChevronRightIcon w={6} h={6} />
           </Text>
         </Flex>
+        <Tabs size="lg" isFitted variant="enclosed">
+        <TabList>
+          <Tab onClick={()=> {setTabVal(IN_PROGRESS); console.log(tabVal); assignPanel();}}
+          _selected={{ bg: 'gray.100', borderColor: 'gray.200' }}>
+            In Progress
+          </Tab>
+          <Tab onClick={()=> {setTabVal(HISTORY); console.log(tabVal); assignPanel();}}
+          _selected={{ bg: 'gray.100', borderColor: 'gray.200' }}>
+            History
+          </Tab>
+        </TabList>
+      </Tabs>
 
-        <Text fontSize="1.2rem" fontWeight="black" mt="1rem">
+      <Accordion allowToggle>
+        <AccordionItem>
+          <h2>
+            <AccordionButton>
+              <Box
+                flex="1"
+                textAlign="center"
+                color="gray.500"
+                fontSize={'1.2rem'}
+                py="0.5rem"
+              >
+                Filter by Status:
+              </Box>
+              <AccordionIcon />
+            </AccordionButton>
+          </h2>
+          {panel}
+        </AccordionItem>
+      </Accordion>
+
+      {cards}
+        {/* <Text fontSize="1.2rem" fontWeight="black" mt="1rem">
           Favors Requested by me 
         </Text>
         {favors.filter(f => f.status === "Accepted").map(favor => (
@@ -157,7 +316,7 @@ function UserProfile() {
         <Text fontSize="1.2rem" fontWeight="black" mt="1rem">
           Favors Accepted by me 
         </Text>
-        {accepted_favors.map(favor => (
+        {accepted_favors.filter(f => f.status === "Accepted").map(favor => (
           <FavorCard onClick={ async => {navigate('/favor-status', {state: {
             favorDetails: favor,
             isFavoree: false
@@ -177,7 +336,7 @@ function UserProfile() {
         </Text>
         {accepted_favors.filter(f => f.status === "Completed").map(favor => (
           <FavorCard details={favor}/>
-        ))}
+        ))} */}
 
       </Flex>
 
