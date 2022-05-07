@@ -12,9 +12,6 @@ import {
   theme,
   Link,
   Heading,
-<<<<<<< HEAD
-  HStack,
-=======
   Accordion,
   AccordionItem,
   AccordionButton,
@@ -24,7 +21,6 @@ import {
   Tabs,
   TabList,
   HStack
->>>>>>> 5a8ba96464fec3a98afbfb02ae5ccd5f160c2b47
 } from '@chakra-ui/react';
 
 import { ChevronRightIcon } from '@chakra-ui/icons';
@@ -288,10 +284,6 @@ function UserProfile() {
         </TabList>
       </Tabs>
 
-<<<<<<< HEAD
-        <Text fontSize="1.2rem" fontWeight="black" mt="1rem">
-          Favors Requested by me
-=======
       <Accordion allowToggle>
         <AccordionItem>
           <h2>
@@ -315,7 +307,6 @@ function UserProfile() {
       {cards}
         {/* <Text fontSize="1.2rem" fontWeight="black" mt="1rem">
           Favors Requested by me 
->>>>>>> 5a8ba96464fec3a98afbfb02ae5ccd5f160c2b47
         </Text>
         {favors
           .filter(f => f.status === 'Accepted')
@@ -352,27 +343,12 @@ function UserProfile() {
         <Text fontSize="1.2rem" fontWeight="black" mt="1rem">
           Favors Accepted by me
         </Text>
-<<<<<<< HEAD
-        {accepted_favors.map(favor => (
-          <FavorCard
-            onClick={async => {
-              navigate('/favor-status', {
-                state: {
-                  favorDetails: favor,
-                  isFavoree: false,
-                },
-              });
-            }}
-            details={favor}
-          />
-=======
         {accepted_favors.filter(f => f.status === "Accepted").map(favor => (
           <FavorCard onClick={ async => {navigate('/favor-status', {state: {
             favorDetails: favor,
             isFavoree: false
           }})}}
           details={favor}/>
->>>>>>> 5a8ba96464fec3a98afbfb02ae5ccd5f160c2b47
         ))}
 
         <Text fontSize="1.2rem" fontWeight="black" mt="1rem">
@@ -387,18 +363,10 @@ function UserProfile() {
         <Text fontSize="1.2rem" fontWeight="black" mt="1rem">
           History: Favors Offered
         </Text>
-<<<<<<< HEAD
-        {accepted_favors
-          .filter(f => f.status === 'Completed')
-          .map(favor => (
-            <FavorCard details={favor} />
-          ))}
-=======
         {accepted_favors.filter(f => f.status === "Completed").map(favor => (
           <FavorCard details={favor}/>
         ))} */}
 
->>>>>>> 5a8ba96464fec3a98afbfb02ae5ccd5f160c2b47
       </Flex>
 
       {/* <Box mt="3em"> */}
