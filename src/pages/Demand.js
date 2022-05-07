@@ -41,7 +41,7 @@ export default function DemandPage() {
   const navigate = useNavigate();
   let [cards, setCards] = useState([]);
   let [user, setUser] = useState({});
-  let [category, setCategory] = useState('Coffee');
+  let [category, setCategory] = useState('All');
 
   const getFavors = async () => {
     if (category === 'All') {

@@ -20,7 +20,7 @@ import {
   Tab,
   Tabs,
   TabList,
-  HStack
+  HStack,
 } from '@chakra-ui/react';
 
 import { ChevronRightIcon } from '@chakra-ui/icons';
@@ -41,9 +41,40 @@ const FAVORS_REQUESTED_BY_ME = '1';
 const FAVORS_COMPLETED_BY_ME = '2';
 const FAVORS_COMPLETED_FOR_ME = '3';
 
-
 function UserProfile() {
   const navigate = useNavigate();
+
+  async function logOut() {
+    try {
+      const response = await axios.get(LOGOUT_URL);
+      const message = await response.data;
+      console.log(message);
+      navigate('/login');
+    } catch (err) {
+      console.error(err.response);
+    }
+  }
+
+  function setData(userData) {
+    setName(userData.name);
+    setEmail(userData.email);
+    setCoins(userData.favorCoins);
+    setPhone(userData.phone);
+    setUserId(userData._id);
+  }
+
+  const [tabVal, setTabVal] = useState('0');
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
+  const [coins, setCoins] = useState('');
+  const [userId, setUserId] = useState('');
+  const [favors, setFavors] = useState([]);
+  const [accepted_favors, setAcceptedFavors] = useState([]);
+  const [panel, setPanel] = useState(<> </>);
+  const [cards, setCards] = useState(<> </>);
+  const [buttonClick, setButtonClick] = useState('');
+
   useEffect(() => {
     async function fetchData() {
       const response = await axios.get(USER_URL);
@@ -70,8 +101,8 @@ function UserProfile() {
 
     fetchData()
       .then(userId => {
-        fetchFavors(userId).catch((err) => console.error(err.response));
-        fetchAcceptedFavors(userId).catch((err) => console.error(err.response));
+        fetchFavors(userId).catch(err => console.error(err.response));
+        fetchAcceptedFavors(userId).catch(err => console.error(err.response));
       })
       .catch(err => {
         console.error(err.response);
@@ -79,47 +110,16 @@ function UserProfile() {
       });
   }, []);
 
-  async function logOut() {
-    try{
-      const response = await axios.get(LOGOUT_URL);
-      const message = await response.data;
-      console.log(message);
-      navigate('/login');
-    }
-    catch(err){
-      console.error(err.response);
-    }
-    
-  }
-
-  function setData(userData) {
-    setName(userData.name);
-    setEmail(userData.email);
-    setCoins(userData.favorCoins);
-    setPhone(userData.phone);
-    setUserId(userData._id);
-  }
-
-  const [tabVal, setTabVal] = useState('0');
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [phone, setPhone] = useState('');
-  const [coins, setCoins] = useState('');
-  const [userId, setUserId] = useState('');
-  const [favors, setFavors] = useState([]);
-  const [accepted_favors, setAcceptedFavors] = useState([]);
-  const [panel, setPanel] = useState(<> </>);
-  const [cards, setCards] = useState(<> </>);
-  const [buttonClick, setButtonClick] = useState('');
+  useEffect(() => {
+    assignCards(FAVORS_REQUESTED_BY_ME);
+  }, [favors]);
 
   useEffect(() => {
     assignPanel();
-    if(tabVal == '0')
-    {
+    if (tabVal === '0') {
       assignCards(FAVORS_REQUESTED_BY_ME);
     }
-    if(tabVal == '1')
-    {
+    if (tabVal === '1') {
       assignCards(FAVORS_COMPLETED_BY_ME);
     }
   }, [tabVal]);
@@ -129,94 +129,136 @@ function UserProfile() {
   }, [buttonClick]);
 
   function assignPanel() {
-    if (tabVal === IN_PROGRESS)
-      {
-          setPanel(
-          <AccordionPanel pt={'0.5rem'}>
-          <Flex wrap={'wrap'} justifyContent="center">
-             <Button mx="1rem" mt="0.5rem" onClick={() => {setButtonClick(FAVORS_REQUESTED_BY_ME)}}>
-              Favors Requested by Me
-            </Button>
-            <Button mx="1rem" mt="0.5rem" onClick={() => {setButtonClick(FAVORS_ACCEPTED_BY_ME)}}>
-              Favors Accepted by Me
-            </Button>
-            </Flex>
-          </AccordionPanel>
-        )
-      }
-      else {
+    if (tabVal === IN_PROGRESS) {
       setPanel(
         <AccordionPanel pt={'0.5rem'}>
-        <Flex wrap={'wrap'} justifyContent="center">
-          <Button mx="1rem" mt="0.5rem" onClick={() => {setButtonClick(FAVORS_COMPLETED_BY_ME)}}>
-            Favors Completed by Me
-          </Button>
-          <Button mx="1rem" mt="0.5rem" onClick={() => {setButtonClick(FAVORS_COMPLETED_FOR_ME)}}>
-            Favors Completed for Me 
-          </Button>
+          <Flex wrap={'wrap'} justifyContent="center">
+            <Button
+              mx="1rem"
+              mt="0.5rem"
+              onClick={() => {
+                setButtonClick(FAVORS_REQUESTED_BY_ME);
+              }}
+            >
+              Favors Requested by Me
+            </Button>
+            <Button
+              mx="1rem"
+              mt="0.5rem"
+              onClick={() => {
+                setButtonClick(FAVORS_ACCEPTED_BY_ME);
+              }}
+            >
+              Favors Accepted by Me
+            </Button>
           </Flex>
         </AccordionPanel>
-      )
+      );
+    } else {
+      setPanel(
+        <AccordionPanel pt={'0.5rem'}>
+          <Flex wrap={'wrap'} justifyContent="center">
+            <Button
+              mx="1rem"
+              mt="0.5rem"
+              onClick={() => {
+                setButtonClick(FAVORS_COMPLETED_BY_ME);
+              }}
+            >
+              Favors Completed by Me
+            </Button>
+            <Button
+              mx="1rem"
+              mt="0.5rem"
+              onClick={() => {
+                setButtonClick(FAVORS_COMPLETED_FOR_ME);
+              }}
+            >
+              Favors Completed for Me
+            </Button>
+          </Flex>
+        </AccordionPanel>
+      );
     }
   }
 
   function assignCards(type) {
-    if(type === FAVORS_ACCEPTED_BY_ME)
-    {
+    console.log('Favors in Assign Cards', favors);
+    if (type === FAVORS_ACCEPTED_BY_ME) {
       setCards(
         <>
-        <Text fontSize="1.2rem" fontWeight="black" mt="1rem">
-        Favors Accepted by Me 
-        </Text>
-        {accepted_favors.filter(f => f.status === "Accepted").map(favor => (
-        <FavorCard onClick={ async => {navigate('/favor-status', {state: {
-          favorDetails: favor,
-          isFavoree: false
-        }})}}
-        details={favor}/>
-      ))}
-      </>)
-    }
-    else if(type === FAVORS_REQUESTED_BY_ME)
-    {
+          <Text fontSize="1.2rem" fontWeight="black" mt="1rem">
+            Favors Accepted by Me
+          </Text>
+          {accepted_favors
+            .filter(f => f.status === 'Accepted')
+            .map(favor => (
+              <FavorCard
+                onClick={async => {
+                  navigate('/favor-status', {
+                    state: {
+                      favorDetails: favor,
+                      isFavoree: false,
+                    },
+                  });
+                }}
+                details={favor}
+              />
+            ))}
+        </>
+      );
+    } else if (type === FAVORS_REQUESTED_BY_ME) {
       setCards(
         <>
-        <Text fontSize="1.2rem" fontWeight="black" mt="1rem">
-        Favors Requested by Me 
-        </Text>
-        {favors.filter(f => f.status === "Accepted" || f.status === "Requested").map(favor => (
-        <FavorCard onClick={ async => {navigate('/favor-status', {state: {
-          favorDetails: favor,
-          isFavoree: true
-        }})}}
-        details={favor}/>
-      ))}
-      </>)
-    }
-    else if(type === FAVORS_COMPLETED_BY_ME)
-    {
-      setCards(<>
-      <Text fontSize="1.2rem" fontWeight="black" mt="1rem">
-          Favors Completed by Me
-        </Text>
-        {accepted_favors.filter(f => f.status === "Completed").map(favor => (
-          <FavorCard details={favor}/>
-        ))}
-      </>)
-    }
-    else if(type === FAVORS_COMPLETED_FOR_ME)
-    {
-      setCards(<>
-      <Text fontSize="1.2rem" fontWeight="black" mt="1rem">
-        Favors Completed for Me
-        </Text>
-        {favors.filter(f => f.status === "Completed").map(favor => (
-          <FavorCard details={favor}/>
-        ))}
-      </>)
+          <Text fontSize="1.2rem" fontWeight="black" mt="1rem">
+            Favors Requested by Me
+          </Text>
+          {favors
+            .filter(f => f.status === 'Accepted' || f.status === 'Requested')
+            .map(favor => (
+              <FavorCard
+                onClick={async => {
+                  navigate('/favor-status', {
+                    state: {
+                      favorDetails: favor,
+                      isFavoree: true,
+                    },
+                  });
+                }}
+                details={favor}
+              />
+            ))}
+        </>
+      );
+    } else if (type === FAVORS_COMPLETED_BY_ME) {
+      setCards(
+        <>
+          <Text fontSize="1.2rem" fontWeight="black" mt="1rem">
+            Favors Completed by Me
+          </Text>
+          {accepted_favors
+            .filter(f => f.status === 'Completed')
+            .map(favor => (
+              <FavorCard details={favor} />
+            ))}
+        </>
+      );
+    } else if (type === FAVORS_COMPLETED_FOR_ME) {
+      setCards(
+        <>
+          <Text fontSize="1.2rem" fontWeight="black" mt="1rem">
+            Favors Completed for Me
+          </Text>
+          {favors
+            .filter(f => f.status === 'Completed')
+            .map(favor => (
+              <FavorCard details={favor} />
+            ))}
+        </>
+      );
     }
   }
-  
+
   return (
     <Box>
       <Flex
@@ -272,101 +314,50 @@ function UserProfile() {
           </Text>
         </Flex>
         <Tabs size="lg" isFitted variant="enclosed">
-        <TabList>
-          <Tab onClick={()=> {setTabVal(IN_PROGRESS); console.log(tabVal); assignPanel();}}
-          _selected={{ bg: 'gray.100', borderColor: 'gray.200' }}>
-            In Progress
-          </Tab>
-          <Tab onClick={()=> {setTabVal(HISTORY); console.log(tabVal); assignPanel();}}
-          _selected={{ bg: 'gray.100', borderColor: 'gray.200' }}>
-            History
-          </Tab>
-        </TabList>
-      </Tabs>
-
-      <Accordion allowToggle>
-        <AccordionItem>
-          <h2>
-            <AccordionButton>
-              <Box
-                flex="1"
-                textAlign="center"
-                color="gray.500"
-                fontSize={'1.2rem'}
-                py="0.5rem"
-              >
-                Filter by Status:
-              </Box>
-              <AccordionIcon />
-            </AccordionButton>
-          </h2>
-          {panel}
-        </AccordionItem>
-      </Accordion>
-
-      {cards}
-        {/* <Text fontSize="1.2rem" fontWeight="black" mt="1rem">
-          Favors Requested by me 
-        </Text>
-        {favors
-          .filter(f => f.status === 'Accepted')
-          .map(favor => (
-            <FavorCard
-              onClick={async => {
-                navigate('/favor-status', {
-                  state: {
-                    favorDetails: favor,
-                    isFavoree: true,
-                  },
-                });
+          <TabList>
+            <Tab
+              onClick={() => {
+                setTabVal(IN_PROGRESS);
+                console.log(tabVal);
+                assignPanel();
               }}
-              details={favor}
-            />
-          ))}
-
-        {favors
-          .filter(f => f.status === 'Requested')
-          .map(favor => (
-            <FavorCard
-              onClick={async => {
-                navigate('/favor-status', {
-                  state: {
-                    favorDetails: favor,
-                    isFavoree: true,
-                  },
-                });
+              _selected={{ bg: 'gray.100', borderColor: 'gray.200' }}
+            >
+              In Progress
+            </Tab>
+            <Tab
+              onClick={() => {
+                setTabVal(HISTORY);
+                console.log(tabVal);
+                assignPanel();
               }}
-              details={favor}
-            />
-          ))}
+              _selected={{ bg: 'gray.100', borderColor: 'gray.200' }}
+            >
+              History
+            </Tab>
+          </TabList>
+        </Tabs>
 
-        <Text fontSize="1.2rem" fontWeight="black" mt="1rem">
-          Favors Accepted by me
-        </Text>
-        {accepted_favors.filter(f => f.status === "Accepted").map(favor => (
-          <FavorCard onClick={ async => {navigate('/favor-status', {state: {
-            favorDetails: favor,
-            isFavoree: false
-          }})}}
-          details={favor}/>
-        ))}
-
-        <Text fontSize="1.2rem" fontWeight="black" mt="1rem">
-          History: Favors Requested
-        </Text>
-        {favors
-          .filter(f => f.status === 'Completed')
-          .map(favor => (
-            <FavorCard details={favor} />
-          ))}
-
-        <Text fontSize="1.2rem" fontWeight="black" mt="1rem">
-          History: Favors Offered
-        </Text>
-        {accepted_favors.filter(f => f.status === "Completed").map(favor => (
-          <FavorCard details={favor}/>
-        ))} */}
-
+        <Accordion allowToggle>
+          <AccordionItem>
+            <h2>
+              <AccordionButton>
+                <Box
+                  flex="1"
+                  textAlign="center"
+                  color="gray.500"
+                  fontSize={'1.2rem'}
+                  py="0.5rem"
+                >
+                  Filter by Status:
+                </Box>
+                <AccordionIcon />
+              </AccordionButton>
+            </h2>
+            {panel}
+          </AccordionItem>
+        </Accordion>
+        {cards}
       </Flex>
 
       {/* <Box mt="3em"> */}
