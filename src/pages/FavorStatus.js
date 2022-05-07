@@ -83,13 +83,12 @@ function FavorStatus() {
     {
       mac_button = (<Button
         mx="1rem"
+        py="1.5rem"
         mt="1.5rem"
         mb="2rem"
-        p="2rem"
         rounded={'2xl'}
         background="green.300"
         color="gray.100"
-        display="block"
         onClick={ async => {updateStatus(location.state.favorDetails._id, "Completed")
           .then(updateCoins(location.state.favorDetails, "add", location.state.favorDetails.favorCoins, "Completed"))
           .then(navigate('/user-profile'))
@@ -110,11 +109,10 @@ function FavorStatus() {
       cancel_button = (
         <Button
         mx="1rem"
-        p="2rem"
+        py="1.5rem"
         rounded={'2xl'}
         background="red.300"
         color="gray.100"
-        display="block"
         onClick={ async => {updateStatus(location.state.favorDetails._id, "Cancelled")
         .then(updateCoins(location.state.favorDetails, "add", location.state.favorDetails.favorCoins, "Cancelled"))
         .then(navigate('/user-profile'))

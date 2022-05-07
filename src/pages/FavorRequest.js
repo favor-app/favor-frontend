@@ -20,6 +20,7 @@ import {
   Text,
   useColorModeValue,
   HStack,
+  useToast
 } from '@chakra-ui/react';
 
 import { SiCoffeescript } from 'react-icons/si';
@@ -29,8 +30,10 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useState, useRef, useEffect } from 'react';
 const FAVOR_URL = process.env.REACT_APP_URL + '/favors';
+const UPDATE_COINS_URL = process.env.REACT_APP_URL + '/users/updateCoins';
 
 export default function Form() {
+  const toast = useToast()
   const navigate = useNavigate();
 
   const [expiry, setExpiry] = React.useState('60');
@@ -66,6 +69,16 @@ export default function Form() {
       const response = await axios.post(FAVOR_URL, favorBody);
       console.log(response);
       setSuccess(true);
+      const updateResponse = await axios.get(UPDATE_COINS_URL, {
+        params: { type: "subtract", favorCoins: coins, userId: response.data.favoreeId}
+      });
+      toast({
+        title: 'Favor created successfully!',
+        status: 'success',
+        position: 'top',
+        duration: 1000,
+        isClosable: true,
+      });
       navigate('/user-profile');
     } catch (err) {
       let msg = (err.response.data.message !== undefined) ?  err.response.data.message : err.response.data;
