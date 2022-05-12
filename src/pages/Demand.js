@@ -16,7 +16,6 @@ import {
   useColorModeValue,
   InputGroup,
   InputLeftElement,
-
   Tabs,
   TabList,
   TabPanels,
@@ -25,9 +24,7 @@ import {
 } from '@chakra-ui/react';
 import Navbar from '../components/Navbar';
 
-import {
-  SearchIcon
-} from '@chakra-ui/icons';
+import { SearchIcon } from '@chakra-ui/icons';
 
 import FavorCard from '../components/FavorCard';
 import axios from 'axios';
@@ -44,10 +41,13 @@ export default function DemandPage() {
   let [category, setCategory] = useState('All');
 
   const getFavors = async () => {
+    let token = localStorage.getItem('auth-token');
     if (category === 'All') {
       console.log('All');
       try {
-        const json = await axios.get(DEMANDS_URL);
+        const json = await axios.get(DEMANDS_URL, {
+          headers: { 'auth-token':  token},
+        });
         // console.log(json.data);
         setCards(json.data);
       } catch (err) {
@@ -57,6 +57,7 @@ export default function DemandPage() {
       try {
         const json = await axios.get(DEMANDS_CATEG_URL, {
           params: { category: category },
+          headers: { 'auth-token': localStorage.getItem('auth-token') },
         });
         // console.log(json.data);
         setCards(json.data);
@@ -68,7 +69,9 @@ export default function DemandPage() {
 
   const getUser = async () => {
     try {
-      const userData = await axios.get(USER_URL);
+      const userData = await axios.get(USER_URL, {
+        headers: { 'auth-token': localStorage.getItem('auth-token') },
+      });
       setUser(userData.data);
     } catch (err) {
       console.error(err.response);

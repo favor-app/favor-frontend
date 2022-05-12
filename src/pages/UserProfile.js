@@ -46,9 +46,10 @@ function UserProfile() {
 
   async function logOut() {
     try {
-      const response = await axios.get(LOGOUT_URL);
-      const message = await response.data;
-      console.log(message);
+      // const response = await axios.get(LOGOUT_URL);
+      // const message = await response.data;
+      // console.log(message);
+      localStorage.removeItem('auth-token');
       navigate('/login');
     } catch (err) {
       console.error(err.response);
@@ -77,7 +78,9 @@ function UserProfile() {
 
   useEffect(() => {
     async function fetchData() {
-      const response = await axios.get(USER_URL);
+      const response = await axios.get(USER_URL, {
+        headers: { 'auth-token': localStorage.getItem('auth-token') },
+      });
       const userData = await response.data;
       setData(userData);
       setTabVal(IN_PROGRESS);
@@ -88,13 +91,16 @@ function UserProfile() {
     async function fetchFavors(userId) {
       const response = await axios.get(FAVORS_URL, {
         params: { favoreeId: userId },
+        headers: { 'auth-token': localStorage.getItem('auth-token') },
       });
       const favors = await response.data;
       setFavors(favors);
     }
 
     async function fetchAcceptedFavors(userId) {
-      const response = await axios.get(FAVORS_ACCEPTED_URL);
+      const response = await axios.get(FAVORS_ACCEPTED_URL, {
+        headers: { 'auth-token': localStorage.getItem('auth-token') },
+      });
       const accepted_favors = await response.data;
       setAcceptedFavors(accepted_favors);
     }

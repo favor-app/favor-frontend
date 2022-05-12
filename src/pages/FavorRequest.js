@@ -66,7 +66,9 @@ export default function Form() {
         category: category,
         favorCoins: coins,
       };
-      const response = await axios.post(FAVOR_URL, favorBody);
+      const response = await axios.post(FAVOR_URL, favorBody, {
+        headers: { 'auth-token': localStorage.getItem('auth-token') },
+      });
       console.log(response);
       setSuccess(true);
       const updateResponse = await axios.get(UPDATE_COINS_URL, {
@@ -75,6 +77,7 @@ export default function Form() {
           favorCoins: coins,
           userId: response.data.favoreeId,
         },
+        headers: { 'auth-token': localStorage.getItem('auth-token') }
       });
       toast({
         title: 'Favor created successfully!',

@@ -27,6 +27,7 @@ async function updateStatus(favorId, status) {
   try {
     const response = await axios.get(UPDATE_STATUS_URL, {
       params: { status: status, favorId: favorId },
+      headers: { 'auth-token': localStorage.getItem('auth-token') },
     });
   } catch (err) {
     console.log(err.response);
@@ -37,6 +38,7 @@ async function getTradeDetails(favorId) {
   try {
     const response = await axios.get(GET_TRADE_URL, {
       params: { favorId: favorId },
+      headers: { 'auth-token': localStorage.getItem('auth-token') },
     });
     const tradeData = response.data;
     return tradeData;
@@ -56,6 +58,7 @@ async function updateCoins(favorDetails, type, coins, status) {
       }
       const response = await axios.get(UPDATE_COINS_URL, {
         params: { type: type, favorCoins: coins, userId: userId },
+        headers: { 'auth-token': localStorage.getItem('auth-token') },
       });
     });
   } catch (err) {

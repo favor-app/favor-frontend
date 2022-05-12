@@ -39,9 +39,10 @@ export default function Login() {
       console.log(LOGIN_URL);
       let authBody = { email: user, password: pwd };
       const response = await axios.post(LOGIN_URL, authBody);
-      console.log(response);
+      const token = response.data;
+      localStorage.setItem("auth-token", token);
       setSuccess(true);
-      navigate('/user-profile');
+      navigate('/demand');
 
     } catch (err) {
       setUser('');

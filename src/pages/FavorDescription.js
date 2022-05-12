@@ -56,9 +56,15 @@ function FavorDescription() {
 
   async function acceptFavor() {
     try {
-      const response = await axios.post(TRADE_URL, {
-        favorId: favorId,
-      });
+      const response = await axios.post(
+        TRADE_URL,
+        {
+          favorId: favorId,
+        },
+        {
+          headers: { 'auth-token': localStorage.getItem('auth-token') },
+        }
+      );
       console.log(response.data);
       updateFavor();
     } catch (err) {
@@ -70,6 +76,7 @@ function FavorDescription() {
     try {
       const response = await axios.get(UPDATE_FAVOR_URL, {
         params: { status: 'Accepted', favorId: favorId },
+        headers: { 'auth-token': localStorage.getItem('auth-token') },
       });
       console.log(response.data);
       toast({
