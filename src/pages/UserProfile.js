@@ -277,7 +277,7 @@ function UserProfile() {
         pb="3rem"
         maxW={{ lg: '4xl' }}
       >
-        <Heading fontSize={{ base: '2xl', lg: '3xl' }} mb="1rem">
+        <Heading color='blue.900' as="h1" fontSize={{ base: '3xl', lg: '4xl' }} textAlign="center" fontWeight={'1000'} mb="1rem">
           My Profile
         </Heading>
         <HStack justify={'space-between'}>

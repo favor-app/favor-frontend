@@ -6,6 +6,7 @@ import {
   Image,
   Flex,
   Icon,
+  VStack,
   useColorModeValue,
   Link,
 } from '@chakra-ui/react';

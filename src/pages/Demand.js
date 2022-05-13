@@ -12,6 +12,7 @@ import {
   AccordionIcon,
   Heading,
   Icon,
+  Spacer,
   Button,
   useColorModeValue,
   InputGroup,
@@ -23,13 +24,13 @@ import {
   TabPanel,
 } from '@chakra-ui/react';
 import Navbar from '../components/Navbar';
-
+import { Image } from '@chakra-ui/react'
 import { SearchIcon } from '@chakra-ui/icons';
 
 import FavorCard from '../components/FavorCard';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-
+import Fonts from '../fonts'
 const DEMANDS_URL = process.env.REACT_APP_URL + '/favors';
 const DEMANDS_CATEG_URL = process.env.REACT_APP_URL + '/favors/byCategory';
 const USER_URL = process.env.REACT_APP_URL + '/users';
@@ -97,23 +98,12 @@ export default function DemandPage() {
       py="2rem"
       maxW={{ lg: '4xl' }}
     >
-      <Heading as="h1" fontSize={'3xl'} textAlign="center" mb="1rem">
+      <Heading color='blue.900' as="h1" fontSize={'4xl'} textAlign="center" fontWeight={'1000'} mb="1rem">
         Welcome, {user.name !== undefined ? user.name.split(' ')[0] : ''}
       </Heading>
-
-      <InputGroup>
-        <InputLeftElement
-          children={<Icon as={SearchIcon} color="blue.700" />}
-        />
-        <Input
-          mb="1rem"
-          type="string"
-          bg="gray.50"
-          fontWeight="bold"
-          placeholder="Search"
-          rounded="70px"
-        />
-      </InputGroup>
+      <Spacer />
+      <Box p='0.5' bg='blue.600' rounded="lg" >
+      </Box>
       <Tabs size="lg" isFitted variant="enclosed">
         <TabList>
           <Tab _selected={{ bg: 'gray.100', borderColor: 'gray.200' }}>

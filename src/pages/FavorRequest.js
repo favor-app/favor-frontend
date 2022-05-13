@@ -102,7 +102,9 @@ export default function Form() {
     <Flex minH="100vh" mx="auto" maxW="4xl" align={'center'} justify={'center'}>
       <Stack mx={'auto'} w="full" py={'2rem'} px="2rem">
         <Stack align={'center'}>
-          <Heading fontSize={'4xl'}>Request a Favor</Heading>
+        <Heading color='blue.900' as="h1" fontSize={'4xl'} textAlign="center" fontWeight={'1000'} mb="1rem">
+          Request a Favor
+        </Heading>
         </Stack>
         <form onSubmit={handleSubmit}>
           <Stack spacing={4}>
