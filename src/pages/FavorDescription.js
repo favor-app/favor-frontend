@@ -46,9 +46,10 @@ function FavorDescription() {
       const expiryTimer = favorDetails.favorRequestTimer;
       const nowDateObj = new Date(Date.now());
       let oldDateObj = moment(date).add(expiryTimer, 'm').toDate();
-      let seconds = nowDateObj - oldDateObj;
-      let minutes = Math.round(seconds / 60000);
-      setExpiry(minutes);
+      var seconds = oldDateObj - nowDateObj;
+      if(seconds <= 0)
+        seconds = 0;
+      setExpiry(Math.round(seconds / 60000));
     } else {
       navigate('/demand');
     }

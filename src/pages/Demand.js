@@ -127,10 +127,10 @@ export default function DemandPage() {
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>Feature under Development</ModalHeader>
+          <ModalHeader>Feature Under Development</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            This feature is currently under development.
+            Have something to Offer? Favorly will soon add the feature that allows you to offer gigs.
           </ModalBody>
 
           <ModalFooter>

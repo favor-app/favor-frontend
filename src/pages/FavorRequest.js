@@ -9,6 +9,7 @@ import {
   Stack,
   Divider,
   Center,
+  Tooltip,
   Textarea,
   RadioGroup,
   Radio,
@@ -132,6 +133,7 @@ export default function Form() {
 
             <FormControl id="Favor Coins">
               <FormLabel>Favor Coins</FormLabel>
+              <Tooltip label="Know More">
               <Input
                 type="number"
                 rounded="2xl"
@@ -139,6 +141,7 @@ export default function Form() {
                 onChange={e => setCoins(e.target.value)}
                 value={coins}
               />
+              </Tooltip>
             </FormControl>
 
             <FormControl id="Category">
