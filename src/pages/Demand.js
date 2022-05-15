@@ -14,6 +14,7 @@ import {
   Icon,
   Spacer,
   Button,
+  useDisclosure,
   useColorModeValue,
   InputGroup,
   InputLeftElement,
@@ -22,6 +23,13 @@ import {
   TabPanels,
   Tab,
   TabPanel,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
 } from '@chakra-ui/react';
 import Navbar from '../components/Navbar';
 import { Image } from '@chakra-ui/react'
@@ -88,6 +96,7 @@ export default function DemandPage() {
     getFavors();
   }, [category]);
 
+  const { isOpen, onOpen, onClose } = useDisclosure()
   return (
     <Flex
       mx={'auto'}
@@ -106,14 +115,31 @@ export default function DemandPage() {
       </Box>
       <Tabs size="lg" isFitted variant="enclosed">
         <TabList>
-          <Tab _selected={{ bg: 'gray.100', borderColor: 'gray.200' }}>
+          <Tab background='gray.100' borderColor='gray.200'>
             Demands
           </Tab>
-          <Tab _selected={{ bg: 'gray.100', borderColor: 'gray.200' }}>
-            Favors
+          <Tab onClick={onOpen}>
+            Offers
           </Tab>
         </TabList>
       </Tabs>
+
+      <Modal isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Feature under Development</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            This feature is currently under development.
+          </ModalBody>
+
+          <ModalFooter>
+            <Button colorScheme='blue' mr={3} onClick={onClose}>
+              Close
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
 
       <Accordion allowToggle>
         <AccordionItem>
