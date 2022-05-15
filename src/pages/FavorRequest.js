@@ -9,6 +9,7 @@ import {
   Stack,
   Divider,
   Center,
+  Tooltip,
   Textarea,
   RadioGroup,
   Radio,
@@ -102,7 +103,9 @@ export default function Form() {
     <Flex minH="100vh" mx="auto" maxW="4xl" align={'center'} justify={'center'}>
       <Stack mx={'auto'} w="full" py={'2rem'} px="2rem">
         <Stack align={'center'}>
-          <Heading fontSize={'4xl'}>Request a Favor</Heading>
+        <Heading color='blue.900' as="h1" fontSize={'4xl'} textAlign="center" fontWeight={'1000'} mb="1rem">
+          Request a Favor
+        </Heading>
         </Stack>
         <form onSubmit={handleSubmit}>
           <Stack spacing={4}>
@@ -130,6 +133,7 @@ export default function Form() {
 
             <FormControl id="Favor Coins">
               <FormLabel>Favor Coins</FormLabel>
+              <Tooltip label="Know More">
               <Input
                 type="number"
                 rounded="2xl"
@@ -137,6 +141,7 @@ export default function Form() {
                 onChange={e => setCoins(e.target.value)}
                 value={coins}
               />
+              </Tooltip>
             </FormControl>
 
             <FormControl id="Category">

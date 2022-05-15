@@ -12,7 +12,9 @@ import {
   AccordionIcon,
   Heading,
   Icon,
+  Spacer,
   Button,
+  useDisclosure,
   useColorModeValue,
   InputGroup,
   InputLeftElement,
@@ -21,15 +23,22 @@ import {
   TabPanels,
   Tab,
   TabPanel,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
 } from '@chakra-ui/react';
 import Navbar from '../components/Navbar';
-
+import { Image } from '@chakra-ui/react'
 import { SearchIcon } from '@chakra-ui/icons';
 
 import FavorCard from '../components/FavorCard';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-
+import Fonts from '../fonts'
 const DEMANDS_URL = process.env.REACT_APP_URL + '/favors';
 const DEMANDS_CATEG_URL = process.env.REACT_APP_URL + '/favors/byCategory';
 const USER_URL = process.env.REACT_APP_URL + '/users';
@@ -87,6 +96,7 @@ export default function DemandPage() {
     getFavors();
   }, [category]);
 
+  const { isOpen, onOpen, onClose } = useDisclosure()
   return (
     <Flex
       mx={'auto'}
@@ -97,33 +107,39 @@ export default function DemandPage() {
       py="2rem"
       maxW={{ lg: '4xl' }}
     >
-      <Heading as="h1" fontSize={'3xl'} textAlign="center" mb="1rem">
+      <Heading color='blue.900' as="h1" fontSize={'4xl'} textAlign="center" fontWeight={'1000'} mb="1rem">
         Welcome, {user.name !== undefined ? user.name.split(' ')[0] : ''}
       </Heading>
-
-      <InputGroup>
-        <InputLeftElement
-          children={<Icon as={SearchIcon} color="blue.700" />}
-        />
-        <Input
-          mb="1rem"
-          type="string"
-          bg="gray.50"
-          fontWeight="bold"
-          placeholder="Search"
-          rounded="70px"
-        />
-      </InputGroup>
+      <Spacer />
+      <Box p='0.5' bg='blue.600' rounded="lg" >
+      </Box>
       <Tabs size="lg" isFitted variant="enclosed">
         <TabList>
-          <Tab _selected={{ bg: 'gray.100', borderColor: 'gray.200' }}>
+          <Tab background='gray.100' borderColor='gray.200'>
             Demands
           </Tab>
-          <Tab _selected={{ bg: 'gray.100', borderColor: 'gray.200' }}>
-            Favors
+          <Tab onClick={onOpen}>
+            Offers
           </Tab>
         </TabList>
       </Tabs>
+
+      <Modal isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Feature Under Development</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            Have something to Offer? Favorly will soon add the feature that allows you to offer gigs.
+          </ModalBody>
+
+          <ModalFooter>
+            <Button colorScheme='blue' mr={3} onClick={onClose}>
+              Close
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
 
       <Accordion allowToggle>
         <AccordionItem>

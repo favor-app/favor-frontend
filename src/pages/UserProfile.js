@@ -21,6 +21,14 @@ import {
   Tabs,
   TabList,
   HStack,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+  useDisclosure
 } from '@chakra-ui/react';
 
 import { ChevronRightIcon } from '@chakra-ui/icons';
@@ -43,6 +51,7 @@ const FAVORS_COMPLETED_FOR_ME = '3';
 
 function UserProfile() {
   const navigate = useNavigate();
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   async function logOut() {
     try {
@@ -277,7 +286,7 @@ function UserProfile() {
         pb="3rem"
         maxW={{ lg: '4xl' }}
       >
-        <Heading fontSize={{ base: '2xl', lg: '3xl' }} mb="1rem">
+        <Heading color='blue.900' as="h1" fontSize={{ base: '3xl', lg: '4xl' }} textAlign="center" fontWeight={'1000'} mb="1rem">
           My Profile
         </Heading>
         <HStack justify={'space-between'}>
@@ -312,13 +321,32 @@ function UserProfile() {
           rounded="2xl"
           shadow="lg"
           mb="1rem"
+          onClick={onOpen}
         >
           <Text fontWeight={'extrabold'}>{coins} 💰</Text>
           <Text>
-            Buy
+            Loan Coins
             <ChevronRightIcon w={6} h={6} />
           </Text>
         </Flex>
+        
+        <Modal isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Feature Under Development</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            Out of coins? Favorly will soon allow you to loan coins to fulfill your urgent needs.
+          </ModalBody>
+
+          <ModalFooter>
+            <Button colorScheme='blue' mr={3} onClick={onClose}>
+              Close
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+        </Modal>
+
         <Tabs size="lg" isFitted variant="enclosed">
           <TabList>
             <Tab

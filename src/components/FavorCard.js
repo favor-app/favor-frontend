@@ -6,6 +6,7 @@ import {
   Image,
   Flex,
   Icon,
+  VStack,
   useColorModeValue,
   Link,
 } from '@chakra-ui/react';
@@ -33,7 +34,9 @@ const FavorCard = props => {
     const nowDateObj = new Date(Date.now());
     // console.log(date);
     var oldDateObj = moment(date).add(expiryTimer, 'm').toDate();
-    var seconds = nowDateObj - oldDateObj;
+    var seconds = oldDateObj - nowDateObj;
+    if(seconds <= 0)
+      seconds = 0;
     // console.log(seconds);
     var minutes = Math.round(seconds / 60000);
     return minutes;
@@ -44,6 +47,7 @@ const FavorCard = props => {
   };
 
   const expiryTime = getExpiryTime();
+
   return (
     <Flex py={'1rem'} alignItems="center" justifyContent="center">
       <Box w="full" px={'1rem'} pt={'1rem'} rounded="2xl" shadow="lg">
