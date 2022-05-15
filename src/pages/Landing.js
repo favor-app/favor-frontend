@@ -1,74 +1,92 @@
 import {
+  Container,
+  Stack,
   Flex,
   Box,
-  Image,
-  Container,
   Heading,
-  Stack,
   Text,
   Button,
+  Image,
   Icon,
+  IconButton,
+  createIcon,
   IconProps,
-  VStack,
+  useColorModeValue,
 } from '@chakra-ui/react';
-import Logo from '../assets/logo.png';
-import { useNavigate } from 'react-router-dom';
 
-export default function Landing() {
+import Feature from '../components/Feature';
+import Logo from '../assets/Logo_Final.png';
+import { useLocation, useNavigate } from 'react-router-dom';
+
+export default function CallToActionWithVideo() {
   const navigate = useNavigate();
   return (
-    <div
-      style={{
-        background: 'radial-gradient(at center,white, #d4e5fa )',
-      }}
-    >
+    <Box bg="white">
       <Flex
-        textAlign={'center'}
-        align="center"
-        justify="center"
-        direction="column"
-        maxW="60vw  "
+        direction={{ base: 'column', md: 'row', lg: 'row' }}
         minH="100vh"
-        mx="auto"
+        align="center"
+        justify={'center'}
       >
-        <Image src={Logo} ml="3" mb="1rem" w={'12rem'}></Image>
-        <Heading
-          fontWeight={800}
-          fontSize={{ base: '4xl', sm: '6xl', md: '7xl' }}
-          lineHeight={'110%'}
-          mb="1rem"
-          color={'blue.600'}
+        <Flex
+          align={'center'}
+          justify="center"
+          px="2rem"
+          py="1rem"
+          direction="column"
         >
-          Need something in a hurry?{' '}
-          <Text as={'span'} color={'black'}>
-            Ask for it.
-          </Text>
-        </Heading>
-
-        <Text color={'gray.900'} fontSize={{ sm: '20', md: '30' }} mb="1rem">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas
-          ligula lectus, convallis vel tincidunt eget, lacinia at lorem.
-          Maecenas at interdum nibh, convallis vel tincidunt.
-        </Text>
-
-        <Stack spacing={6} direction={'row'}>
-          <Button
-            fontWeight={'thin'}
-            fontSize={'1.2rem'}
-            rounded={'2xl'}
-            mb="2rem"
-            p={'1.8rem'}
-            colorScheme={'blue'}
-            bg={'blue.600'}
-            _hover={{ bg: 'blue.900' }}
-            onClick={async => {
-              navigate('/demand');
-            }}
+          <Image w="10rem" src={Logo} />
+          <Heading
+            textAlign={'center'}
+            lineHeight={1.2}
+            fontWeight={600}
+            fontSize="5vh"
+            color="#367ab7"
           >
-            Get started
-          </Button>
-        </Stack>
+            Need Help with something? Fret Not!
+          </Heading>
+          <Text textAlign={'center'} color={'gray.500'} py="1rem" px="1rem">
+            There are two things common to every college student: we are always
+            low on cash and we want to try out a million different things in
+            college. So we decided to kill both birds with one app while also
+            helping you make some new friends along the way.
+          </Text>
+          <Stack
+            spacing={{ base: 4, sm: 6 }}
+            direction={{ base: 'column', sm: 'row' }}
+          >
+            <Button
+              rounded={'full'}
+              size={'lg'}
+              fontWeight={'normal'}
+              colorScheme={'blue'}
+              bg={'blue.600'}
+              _hover={{ bg: 'blue.800' }}
+              onClick={() => navigate('/demand')}
+            >
+              Get started
+            </Button>
+          </Stack>
+        </Flex>
+
+        <Flex
+          justify={'center'}
+          align={'center'}
+          display={{ base: 'none', lg: 'block' }}
+        >
+          <Image
+            borderRadius={'3rem'}
+            px="2rem"
+            py="2rem"
+            w={'90rem'}
+            src={
+              'https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=800&q=80'
+            }
+          />
+        </Flex>
       </Flex>
-    </div>
+
+      <Feature />
+    </Box>
   );
 }
