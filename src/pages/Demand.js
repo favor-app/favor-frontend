@@ -100,7 +100,7 @@ export default function DemandPage() {
   return (
     <Flex
       mx={'auto'}
-      minH={'92vh'}
+      minH={'100vh'}
       justifyContent="center"
       direction={'column'}
       px="2rem"
@@ -110,7 +110,6 @@ export default function DemandPage() {
       <Heading color='blue.900' as="h1" fontSize={'4xl'} textAlign="center" fontWeight={'1000'} mb="1rem">
         Welcome, {user.name !== undefined ? user.name.split(' ')[0] : ''}
       </Heading>
-      <Spacer />
       <Box p='0.5' bg='blue.600' rounded="lg" >
       </Box>
       <Tabs size="lg" isFitted variant="enclosed">

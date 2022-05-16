@@ -15,7 +15,7 @@ import {
 } from '@chakra-ui/react';
 
 import Feature from '../components/Feature';
-import Logo from '../assets/Logo_Final.png';
+import Logo from '../assets/AVORLY.png';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 export default function CallToActionWithVideo() {
@@ -35,15 +35,24 @@ export default function CallToActionWithVideo() {
           py="1rem"
           direction="column"
         >
-          <Image w="10rem" src={Logo} />
+          <Image w="25rem" src={Logo} />
           <Heading
             textAlign={'center'}
             lineHeight={1.2}
             fontWeight={600}
             fontSize="5vh"
-            color="#367ab7"
+            color="#0077b6"
           >
-            Need Help with something? Fret Not!
+            Need help with something?
+          </Heading>
+          <Heading
+            textAlign={'center'}
+            lineHeight={1.2}
+            fontWeight={600}
+            fontSize="5vh"
+            color="#0077b6"
+          >
+            We got you!
           </Heading>
           <Text textAlign={'center'} color={'gray.500'} py="1rem" px="1rem">
             There are two things common to every college student: we are always

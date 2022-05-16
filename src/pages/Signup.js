@@ -112,7 +112,7 @@ export default function Signup() {
 
               {/* Email Input */}
               <FormControl id="email" isRequired>
-                <FormLabel>Email address</FormLabel>
+                <FormLabel>UCLA Email address</FormLabel>
                 <Input
                   type="email"
                   placeholder="bruin@ucla.edu"

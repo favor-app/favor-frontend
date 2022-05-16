@@ -25,7 +25,7 @@ import {
 } from '@chakra-ui/react';
 
 import { SiCoffeescript } from 'react-icons/si';
-import { FaHamburger, FaHandsHelping } from 'react-icons/fa';
+import { FaHamburger, FaHandsHelping, FaStore } from 'react-icons/fa';
 import Navbar from '../components/Navbar';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -78,7 +78,7 @@ export default function Form() {
           favorCoins: coins,
           userId: response.data.favoreeId,
         },
-        headers: { 'auth-token': localStorage.getItem('auth-token') }
+        headers: { 'auth-token': localStorage.getItem('auth-token') },
       });
       toast({
         title: 'Favor created successfully!',
@@ -103,9 +103,19 @@ export default function Form() {
     <Flex minH="100vh" mx="auto" maxW="4xl" align={'center'} justify={'center'}>
       <Stack mx={'auto'} w="full" py={'2rem'} px="2rem">
         <Stack align={'center'}>
-        <Heading color='blue.900' as="h1" fontSize={'4xl'} textAlign="center" fontWeight={'1000'} mb="1rem">
-          Request a Favor
-        </Heading>
+          <Heading
+            color="blue.900"
+            as="h1"
+            fontSize={'4xl'}
+            textAlign="center"
+            fontWeight={'1000'}
+            mb="1rem"
+          >
+            Request a Favor
+            <Text display={'inline'} ml="0.5rem" color="blue.600" onClick={() => navigate('/user-profile')}>
+              ⓘ
+            </Text>
+          </Heading>
         </Stack>
         <form onSubmit={handleSubmit}>
           <Stack spacing={4}>
@@ -133,7 +143,6 @@ export default function Form() {
 
             <FormControl id="Favor Coins">
               <FormLabel>Favor Coins</FormLabel>
-              <Tooltip label="Know More">
               <Input
                 type="number"
                 rounded="2xl"
@@ -141,7 +150,9 @@ export default function Form() {
                 onChange={e => setCoins(e.target.value)}
                 value={coins}
               />
-              </Tooltip>
+              <Text color="gray">
+                *Each coin is roughly equal to 15 minutes.
+              </Text>
             </FormControl>
 
             <FormControl id="Category">
@@ -180,6 +191,17 @@ export default function Form() {
                         verticalAlign="-8px"
                       />{' '}
                       General Help
+                    </Radio>
+                    <Divider />
+                    <Radio value="Grocery">
+                      <Icon
+                        as={FaStore}
+                        w={7}
+                        h={7}
+                        color="blue.600"
+                        verticalAlign="-8px"
+                      />{' '}
+                      Grocery
                     </Radio>
                   </Stack>
                 </RadioGroup>
