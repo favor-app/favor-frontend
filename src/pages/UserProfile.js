@@ -34,6 +34,7 @@ import {
 import { ChevronRightIcon } from '@chakra-ui/icons';
 import Navbar from '../components/Navbar';
 import FavorCard from '../components/FavorCard';
+import Faq from '../components/Faq';
 import { useNavigate } from 'react-router-dom';
 
 import axios from 'axios';
@@ -330,6 +331,23 @@ function UserProfile() {
           </Text>
         </Flex>
         
+        <Button
+              type="sumbit"
+              mb="2rem"
+              bg={'blue.400'}
+              py="1.5rem"
+              color={'white'}
+              rounded="2xl"
+              _hover={{
+                bg: 'blue.500',
+              }}
+              onClick={async => {
+                navigate('/faq');
+              }}
+            >
+        How to use the app? 
+        </Button>
+
         <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
