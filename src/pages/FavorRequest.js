@@ -112,7 +112,7 @@ export default function Form() {
             mb="1rem"
           >
             Request a Favor
-            <Text display={'inline'} ml="0.5rem" color="blue.600" onClick={() => navigate('/user-profile')}>
+            <Text display={'inline'} ml="0.5rem" color="blue.600" onClick={() => navigate('/faq')}>
               ⓘ
             </Text>
           </Heading>
