@@ -54,7 +54,7 @@ export default function CallToActionWithVideo() {
           >
             We got you!
           </Heading>
-          <Text textAlign={'center'} color={'gray.500'} py="1rem" px="1rem">
+          <Text textAlign={'center'} color={'gray.500'} py="1rem" >
             There are two things common to every college student: we are always
             low on cash and we want to try out a million different things in
             college. So we decided to kill both birds with one app while also
