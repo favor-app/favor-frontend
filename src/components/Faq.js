@@ -2,6 +2,7 @@ import React from 'react';
 import {
   chakra,
   Text,
+  Heading,
   Box,
   Image,
   Flex,
@@ -16,65 +17,79 @@ import {
 } from '@chakra-ui/react';
 
 function Faq() {
-    return (
-        <Accordion defaultIndex={[0]} allowMultiple>
+  return (
+    <Box minW="60vw" px="1rem" mx="auto" justify={'center'} bg="blue.700">
+      <Accordion allowMultiple color="white">
         <AccordionItem>
-            <h2>
-            <AccordionButton>
-                <Box flex='1' textAlign='left'>
-                What is a favorcoin?
-                </Box>
-                <AccordionIcon />
-            </AccordionButton>
-            </h2>
-            <AccordionPanel pb={4}>
-            Favorcoin is our very own crypto token used to monitor favor transactions 
-            </AccordionPanel>
+          <AccordionButton>
+            <Box flex="1" textAlign="left">
+              <Heading fontSize={'1.5rem'}>How does Favorly work?</Heading>
+            </Box>
+            <AccordionIcon />
+          </AccordionButton>
+          <AccordionPanel pb={4}>
+            Feel like you're in a hurry and don't want to pay the high fees
+            charged by delivery services? Just post a favor request on favorly
+            for your needs and as soon as a kind soul agrees to help out, you're
+            on your way! Each favor costs a certain amount of favorcoins, which
+            we give you, for free!
+          </AccordionPanel>
         </AccordionItem>
         <AccordionItem>
-            <h2>
-            <AccordionButton>
-                <Box flex='1' textAlign='left'>
-                How do favorcoins work?
-                </Box>
-                <AccordionIcon />
-            </AccordionButton>
-            </h2>
-            <AccordionPanel pb={4}>
-            Every time a user posts a favor request, 
-            they specify the cost of the favor depending 
-            on the time required to complete the favor 
-            as well as the effort required to complete it
-            </AccordionPanel>
+          <AccordionButton>
+            <Box flex="1" textAlign="left">
+              <Heading fontSize={'1.5rem'}>What is a favorcoin?</Heading>
+            </Box>
+            <AccordionIcon />
+          </AccordionButton>
+          <AccordionPanel pb={4}>
+            Favorcoin is our very own crypto token used to monitor favor
+            transactions
+          </AccordionPanel>
         </AccordionItem>
         <AccordionItem>
-            <h2>
-            <AccordionButton>
-                <Box flex='1' textAlign='left'>
+          <AccordionButton>
+            <Box flex="1" textAlign="left">
+              <Heading fontSize={'1.5rem'}>How do favorcoins work?</Heading>
+            </Box>
+            <AccordionIcon />
+          </AccordionButton>
+          <AccordionPanel pb={4}>
+            Every time a user posts a favor request, they specify the cost of
+            the favor depending on the time required to complete the favor as
+            well as the effort required to complete it
+          </AccordionPanel>
+        </AccordionItem>
+        <AccordionItem>
+          <AccordionButton>
+            <Box flex="1" textAlign="left">
+              <Heading fontSize={'1.5rem'}>
                 What is the value of a favorcoin?
-                </Box>
-                <AccordionIcon />
-            </AccordionButton>
-            </h2>
-            <AccordionPanel pb={4}>
+              </Heading>
+            </Box>
+            <AccordionIcon />
+          </AccordionButton>
+          <AccordionPanel pb={4}>
             One favorcoin is equivalent to about 15 minutes of your time
-            </AccordionPanel>
+          </AccordionPanel>
         </AccordionItem>
         <AccordionItem>
-            <h2>
-            <AccordionButton>
-                <Box flex='1' textAlign='left'>
+          <AccordionButton>
+            <Box flex="1" textAlign="left">
+              <Heading fontSize={'1.5rem'}>
                 How do I get more favorcoins?
-                </Box>
-                <AccordionIcon />
-            </AccordionButton>
-            </h2>
-            <AccordionPanel pb={4}>
-                The easiest way to get more favorcoins is by helping out your peers! Accept a favor from the request tab or even offer help to someone.
-            </AccordionPanel>
+              </Heading>
+            </Box>
+            <AccordionIcon />
+          </AccordionButton>
+          <AccordionPanel pb={4}>
+            The easiest way to get more favorcoins is by helping out your peers!
+            Accept a favor from the request tab or even offer help to someone.
+          </AccordionPanel>
         </AccordionItem>
-        </Accordion>
-    );
-};
+      </Accordion>
+    </Box>
+  );
+}
 
 export default Faq;
