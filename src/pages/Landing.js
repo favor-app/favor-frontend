@@ -46,14 +46,7 @@ export default function CallToActionWithVideo() {
           >
             Need help with something?
           </Heading>
-          <Heading
-            textAlign={'center'}
-            fontWeight={600}
-            fontSize="5vh"
-            color="#0077b6"
-          >
-            We got you!
-          </Heading>
+            A crypto-based gig marketplace for UCLA
           <Text textAlign={'center'} color={'gray.500'} py="1rem">
             There are two things common to every college student: we are always
             low on cash and we want to try out a million different things in
@@ -93,7 +86,7 @@ export default function CallToActionWithVideo() {
           />
         </Flex>
       </Flex>
-      <Box p='2rem' bg={'blue.700'}>
+      <Box p="2rem" bg={'blue.700'}>
         <Faq />
       </Box>
     </Box>
