@@ -354,7 +354,7 @@ function UserProfile() {
           <ModalHeader>Feature Under Development</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            Out of coins? Favorly will soon allow you to loan coins to fulfill your urgent needs.
+            Out of coins? Favorly will soon allow you to borrow coins to fulfill your urgent needs.
           </ModalBody>
 
           <ModalFooter>
