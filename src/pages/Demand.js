@@ -115,10 +115,10 @@ export default function DemandPage() {
       <Tabs size="lg" isFitted variant="enclosed">
         <TabList>
           <Tab background='gray.100' borderColor='gray.200'>
-            Complete a favor
+            Get a favor
           </Tab>
           <Tab onClick={onOpen}>
-            Offer a favor
+            Give a favor
           </Tab>
         </TabList>
       </Tabs>
